@@ -1,0 +1,91 @@
+'use client';
+
+import styled from 'styled-components';
+import Container from './Container';
+
+const navItems = [
+  { href: '#about', label: 'About' },
+  { href: '#experience', label: 'Experience' },
+  { href: '#skills', label: 'Skills' },
+  { href: '#projects', label: 'Projects' },
+  { href: '#contact', label: 'Contact' },
+];
+
+// 화면 상단에 고정되는 포트폴리오 섹션 내비게이션입니다.
+const Header = styled.header`
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(11, 15, 20, 0.82);
+  backdrop-filter: blur(18px);
+`;
+
+const Inner = styled(Container)`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 72px;
+  gap: 24px;
+`;
+
+const Logo = styled.a`
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  letter-spacing: 0;
+`;
+
+const Mark = styled.span`
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid ${({ theme }) => theme.colors.line};
+  border-radius: 8px;
+  color: ${({ theme }) => theme.colors.background};
+  background: ${({ theme }) => theme.colors.primary};
+`;
+
+const Links = styled.nav`
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  color: ${({ theme }) => theme.colors.textMuted};
+  font-size: 14px;
+
+  @media (max-width: ${({ theme }) => theme.device.mobile}) {
+    display: none;
+  }
+`;
+
+const NavLink = styled.a`
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.text};
+  }
+`;
+
+const Navbar = () => {
+  return (
+    <Header>
+      <Inner>
+        <Logo href="#top" aria-label="홈으로 이동">
+          <Mark>H</Mark>
+          Hong.dev
+        </Logo>
+        <Links aria-label="주요 섹션">
+          {navItems.map((item) => (
+            <NavLink key={item.href} href={item.href}>
+              {item.label}
+            </NavLink>
+          ))}
+        </Links>
+      </Inner>
+    </Header>
+  );
+};
+
+export default Navbar;
