@@ -3,34 +3,6 @@
 import styled from 'styled-components';
 import Container from '@/components/common/Container';
 
-// 포트폴리오에 표시할 더미 프로젝트 목록입니다.
-const projects = [
-  {
-    title: 'Orbit CRM Dashboard',
-    period: '2025.08 - 2025.11',
-    description:
-      '영업 파이프라인, 고객 활동 로그, 권한별 액션을 한 화면에서 관리하는 B2B CRM 대시보드입니다.',
-    stack: ['Next.js', 'Redux', 'Redux-Saga', 'styled-components'],
-    points: ['필터 상태 URL 동기화', '권한 기반 메뉴 렌더링', '대량 액션 진행률 표시'],
-  },
-  {
-    title: 'Market Flow Commerce',
-    period: '2024.12 - 2025.03',
-    description:
-      '프로모션, 장바구니, 결제 상태를 다루는 커머스 프론트엔드 목업 프로젝트입니다.',
-    stack: ['React', 'Redux Toolkit', 'Axios', 'Vercel'],
-    points: ['주문 단계 상태 모델링', '쿠폰/배송비 계산 UI', '반응형 상품 상세'],
-  },
-  {
-    title: 'Team Pulse Workspace',
-    period: '2024.05 - 2024.07',
-    description:
-      '팀 회고와 업무 컨디션을 시각화하는 협업 도구로, 차트와 폼 UX에 집중했습니다.',
-    stack: ['Next.js', 'React Query', 'TypeScript', 'Chart UI'],
-    points: ['폼 검증 패턴 정리', '데이터 로딩 스켈레톤', '접근성 라벨 개선'],
-  },
-];
-
 // 프로젝트 카드 목록과 간단한 목업 프리뷰를 보여주는 섹션입니다.
 const Section = styled.section`
   padding: 96px 0;
@@ -162,7 +134,7 @@ const Tag = styled.span`
   font-size: 12px;
 `;
 
-const Projects = () => {
+const Projects = ({ items }) => {
   return (
     <Section id="projects">
       <Header>
@@ -176,7 +148,7 @@ const Projects = () => {
         </Lead>
       </Header>
       <Grid>
-        {projects.map((project, index) => (
+        {items.map((project, index) => (
           <Card key={project.title}>
             <Preview>
               <MockWindow>

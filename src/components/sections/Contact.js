@@ -67,23 +67,20 @@ const LinkButton = styled.a`
   font-weight: 800;
 `;
 
-const Contact = () => {
+const Contact = ({ data }) => {
   return (
     <Section id="contact">
       <Panel>
         <div>
           <Number>05.</Number>
-          <Title>좋은 제품을 함께 만들 준비가 되어 있습니다.</Title>
-          <Copy>
-            채용, 협업, 프로젝트 피드백 모두 환영합니다. 실제 연락처가 준비되면 아래 더미
-            이메일과 링크만 교체하면 됩니다.
-          </Copy>
+          <Title>{data.title}</Title>
+          <Copy>{data.copy}</Copy>
         </div>
         <Actions>
-          <LinkButton $primary href="mailto:hello@example.com">
+          <LinkButton $primary href={`mailto:${data.email}`}>
             Send Mail
           </LinkButton>
-          <LinkButton href="https://github.com/" target="_blank" rel="noreferrer">
+          <LinkButton href={data.githubUrl} target="_blank" rel="noreferrer">
             GitHub 보기
           </LinkButton>
         </Actions>

@@ -3,32 +3,6 @@
 import styled from 'styled-components';
 import Container from '@/components/common/Container';
 
-// 경력 타임라인에 표시할 더미 회사/역할/성과 데이터입니다.
-const experiences = [
-  {
-    company: 'Aster Labs',
-    role: 'Frontend Developer',
-    period: '2024.03 - 현재',
-    summary: 'B2B 운영 대시보드와 고객 관리 워크플로우를 Next.js 기반으로 개발했습니다.',
-    items: [
-      'Redux-Saga 기반 인증 갱신, 권한 분기, 알림 큐 처리 플로우 구축',
-      '공통 테이블, 필터, 모달 시스템을 컴포넌트 단위로 정리해 반복 개발 시간을 단축',
-      '라우트 단위 코드 분할과 이미지 최적화로 주요 페이지 초기 로딩 개선',
-    ],
-  },
-  {
-    company: 'Pixel Commerce',
-    role: 'Frontend Engineer',
-    period: '2022.09 - 2024.02',
-    summary: '커머스 프로모션 페이지와 주문/결제 화면을 React로 구현했습니다.',
-    items: [
-      '상품 옵션, 쿠폰, 결제 상태를 Redux store로 관리하고 예외 케이스를 문서화',
-      'styled-components 테마 토큰을 도입해 브랜드별 UI 변형을 빠르게 대응',
-      '디자이너, 백엔드와 API 계약을 정리하며 릴리즈 체크리스트 운영',
-    ],
-  },
-];
-
 // 실제 경력 사항을 카드형 타임라인으로 보여주는 섹션입니다.
 const Section = styled.section`
   padding: 96px 0;
@@ -120,7 +94,7 @@ const BulletList = styled.ul`
   line-height: 1.7;
 `;
 
-const Experience = () => {
+const Experience = ({ items }) => {
   return (
     <Section id="experience">
       <Inner>
@@ -135,7 +109,7 @@ const Experience = () => {
           </Lead>
         </Header>
         <List>
-          {experiences.map((experience) => (
+          {items.map((experience) => (
             <Card key={experience.company}>
               <Meta>
                 <Company>{experience.company}</Company>

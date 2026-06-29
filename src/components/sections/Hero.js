@@ -111,24 +111,24 @@ const Code = styled.pre`
   }
 `;
 
-const Hero = () => {
+const Hero = ({ data }) => {
+  const stackText = data.stack.map((item) => `'${item}'`).join(', ');
+  const focusText = data.focus.map((item) => `'${item}'`).join(', ');
+
   return (
     <Wrapper id="top">
       <Grid>
         <div>
-          <Eyebrow>Frontend Developer Portfolio / 2026</Eyebrow>
+          <Eyebrow>{data.eyebrow}</Eyebrow>
           <Title>
-            사용자 흐름을 설계하고 <Accent>견고한 UI</Accent>로 구현합니다.
+            {data.titlePrefix} <Accent>{data.titleAccent}</Accent>{data.titleSuffix}
           </Title>
-          <Description>
-            React와 Next.js를 중심으로 제품의 첫 화면부터 상태 관리, 비동기 플로우,
-            배포까지 연결하는 프론트엔드 개발자 홍길동입니다.
-          </Description>
+          <Description>{data.description}</Description>
           <Actions>
             <Button $primary href="#projects">
               프로젝트 보기
             </Button>
-            <Button href="mailto:hello@example.com">hello@example.com</Button>
+            <Button href={`mailto:${data.email}`}>{data.email}</Button>
           </Actions>
         </div>
         <Snapshot aria-label="기술 스택 요약">
@@ -142,10 +142,10 @@ const Hero = () => {
   role: `}
             <strong>{`'Frontend Engineer'`}</strong>
             {`,
-  stack: ['React', 'Next.js', 'Redux'],
-  asyncFlow: 'Redux-Saga',
-  styling: 'styled-components',
-  focus: ['UX', 'Performance', 'Scalability']
+  stack: [${stackText}],
+  asyncFlow: '${data.asyncFlow}',
+  styling: '${data.styling}',
+  focus: [${focusText}]
 };`}
           </Code>
         </Snapshot>

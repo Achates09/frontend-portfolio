@@ -3,22 +3,6 @@
 import styled from 'styled-components';
 import Container from '@/components/common/Container';
 
-// 기술 스택을 성격별로 묶어 화면에 표시하기 위한 데이터입니다.
-const groups = [
-  {
-    title: 'Core',
-    skills: ['React.js', 'Next.js', 'JavaScript', 'TypeScript', 'HTML5', 'CSS3'],
-  },
-  {
-    title: 'State & Async',
-    skills: ['Redux', 'Redux-Saga', 'React Query', 'Axios', 'REST API'],
-  },
-  {
-    title: 'Styling & Tooling',
-    skills: ['styled-components', 'Git', 'ESLint', 'Prettier', 'Vercel'],
-  },
-];
-
 // 보유 기술을 카테고리별 칩 형태로 보여주는 섹션입니다.
 const Section = styled.section`
   padding: 96px 0;
@@ -81,7 +65,7 @@ const Chip = styled.span`
   font-weight: 700;
 `;
 
-const Skills = () => {
+const Skills = ({ groups }) => {
   return (
     <Section id="skills">
       <Inner>

@@ -69,7 +69,7 @@ const StatLabel = styled.span`
   font-size: 14px;
 `;
 
-const About = () => {
+const About = ({ data }) => {
   return (
     <Section id="about">
       <Grid>
@@ -79,29 +79,17 @@ const About = () => {
         </div>
         <div>
           <Copy>
-            <p>
-              복잡한 요구사항을 작은 컴포넌트와 명확한 데이터 흐름으로 나누는 일을 좋아합니다.
-              Next.js 기반 서비스에서 페이지 구조, 렌더링 전략, 상태 관리 패턴을 설계하며
-              사용자 경험과 개발자 경험 사이의 균형을 고민합니다.
-            </p>
-            <p>
-              더미 경력 기준으로는 SaaS 대시보드, 커머스, 예약 플랫폼을 만들었고,
-              Redux-Saga로 인증, 결제, 알림처럼 순서가 중요한 비동기 플로우를 다뤘습니다.
-            </p>
+            {data.paragraphs.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
           </Copy>
           <Stats>
-            <Stat>
-              <StatValue>3+</StatValue>
-              <StatLabel>Years Experience</StatLabel>
-            </Stat>
-            <Stat>
-              <StatValue>12</StatValue>
-              <StatLabel>Shipped Features</StatLabel>
-            </Stat>
-            <Stat>
-              <StatValue>4</StatValue>
-              <StatLabel>Main Projects</StatLabel>
-            </Stat>
+            {data.stats.map((stat) => (
+              <Stat key={stat.label}>
+                <StatValue>{stat.value}</StatValue>
+                <StatLabel>{stat.label}</StatLabel>
+              </Stat>
+            ))}
           </Stats>
         </div>
       </Grid>
