@@ -1,5 +1,6 @@
 import './globals.css';
 import StyledComponentsRegistry from '@/lib/registry';
+import StoreProvider from '@/redux/StoreProvider';
 
 // 브라우저 탭과 검색 결과에 노출되는 기본 메타 정보를 정의합니다.
 export const metadata = {
@@ -12,7 +13,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="ko">
       <body>
-        <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+        <StyledComponentsRegistry>
+          <StoreProvider>{children}</StoreProvider>
+        </StyledComponentsRegistry>
       </body>
     </html>
   );
