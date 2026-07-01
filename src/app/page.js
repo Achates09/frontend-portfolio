@@ -6,7 +6,8 @@ import Experience from '@/components/sections/Experience';
 import Hero from '@/components/sections/Hero';
 import Projects from '@/components/sections/Projects';
 import Skills from '@/components/sections/Skills';
-import { getPortfolioData } from '@/lib/portfolio-data';
+import StoreProvider from '@/redux/StoreProvider';
+import { loadPortfolioStateOnServer } from '@/redux/serverPortfolioStore';
 
 // App Router의 page.js는 기본적으로 서버 컴포넌트입니다.
 // 그래서 Pages Router의 getServerSideProps 없이도 async 함수 안에서 서버 데이터를 가져올 수 있습니다.
@@ -17,10 +18,11 @@ export const runtime = 'nodejs';
 
 // 포트폴리오 메인 페이지를 섹션 단위로 조립하는 역할을 합니다.
 export default async function Home() {
-  const portfolio = await getPortfolioData();
+  const preloadedState = await loadPortfolioStateOnServer();
+  const portfolio = preloadedState.portfolio.data;
 
   return (
-    <>
+    <StoreProvider preloadedState={preloadedState}>
       <Navbar />
       <main>
         <Hero data={portfolio.hero} />
@@ -31,6 +33,6 @@ export default async function Home() {
         <Contact data={portfolio.contact} />
       </main>
       <Footer />
-    </>
+    </StoreProvider>
   );
 }
