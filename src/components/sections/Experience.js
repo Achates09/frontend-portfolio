@@ -6,7 +6,10 @@ import Container from '@/components/common/Container';
 // 실제 경력 사항을 카드형 타임라인으로 보여주는 섹션입니다.
 const Section = styled.section`
   padding: 96px 0;
-  background: rgba(255, 255, 255, 0.02);
+  /*
+    섹션 구분 배경은 page.js의 ScrollReveal wrapper에서 관리합니다.
+    이 section은 내부 콘텐츠와 여백만 담당해야 배경 밴드와 콘텐츠 영역이 어긋나지 않습니다.
+  */
 `;
 
 const Inner = styled(Container)``;
@@ -103,13 +106,10 @@ const Experience = ({ items }) => {
             <Number>02.</Number>
             <Title>Experience</Title>
           </div>
-          <Lead>
-            제품 요구사항을 화면, 상태, API 흐름으로 번역하고 팀이 유지보수하기 쉬운 구조로
-            정리한 경험을 중심으로 구성했습니다.
-          </Lead>
+          <Lead>제품 요구사항을 화면, 상태, API 흐름으로 번역하고 팀이 유지보수하기 쉬운 구조로 정리한 경험을 중심으로 구성했습니다.</Lead>
         </Header>
         <List>
-          {items.map((experience) => (
+          {items.map(experience => (
             <Card key={experience.company}>
               <Meta>
                 <Company>{experience.company}</Company>
@@ -119,7 +119,7 @@ const Experience = ({ items }) => {
               <div>
                 <Summary>{experience.summary}</Summary>
                 <BulletList>
-                  {experience.items.map((item) => (
+                  {experience.items.map(item => (
                     <li key={item}>{item}</li>
                   ))}
                 </BulletList>

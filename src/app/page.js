@@ -1,5 +1,6 @@
 import Navbar from '@/components/common/Navbar';
 import Footer from '@/components/common/Footer';
+import ScrollReveal from '@/components/common/ScrollReveal';
 import About from '@/components/sections/About';
 import Contact from '@/components/sections/Contact';
 import Experience from '@/components/sections/Experience';
@@ -25,12 +26,30 @@ export default async function Home() {
     <StoreProvider preloadedState={preloadedState}>
       <Navbar />
       <main>
-        <Hero data={portfolio.hero} />
-        <About data={portfolio.about} />
-        <Experience items={portfolio.experiences} />
-        <Skills groups={portfolio.skills} />
-        <Projects items={portfolio.projects} />
-        <Contact data={portfolio.contact} />
+        {/* direction 값을 바꾸면 각 섹션이 들어오는 방향을 쉽게 조정할 수 있습니다.
+            예: 전체를 up으로 통일하면 더 단정하고, left/right를 섞으면 더 리듬감이 생깁니다. */}
+        <ScrollReveal direction="up">
+          <Hero data={portfolio.hero} />
+        </ScrollReveal>
+        <ScrollReveal direction="up">
+          <About data={portfolio.about} />
+        </ScrollReveal>
+        {/* background는 ScrollReveal의 바깥 영역에 적용합니다.
+            그래야 내부 콘텐츠만 슬라이드되고, 섹션 구분 배경은 제자리에서 컨텍스트 영역과 맞게 유지됩니다. */}
+        <ScrollReveal direction="up" background="subtle">
+          <Experience items={portfolio.experiences} />
+        </ScrollReveal>
+        <ScrollReveal direction="up">
+          <Skills groups={portfolio.skills} />
+        </ScrollReveal>
+        <ScrollReveal direction="up" background="subtle">
+          <Projects items={portfolio.projects} />
+        </ScrollReveal>
+        {/* Contact는 패널 바깥 여백이 넓어서 body 그라데이션이 비치면 좌측 하단이 밝게 튈 수 있습니다.
+            base 배경으로 섹션 전체를 덮어 주변 배경과 안정적으로 이어지게 합니다. */}
+        <ScrollReveal direction="up" background="base">
+          <Contact data={portfolio.contact} />
+        </ScrollReveal>
       </main>
       <Footer />
     </StoreProvider>

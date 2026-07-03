@@ -6,7 +6,10 @@ import Container from '@/components/common/Container';
 // 프로젝트 카드 목록과 간단한 목업 프리뷰를 보여주는 섹션입니다.
 const Section = styled.section`
   padding: 96px 0;
-  background: rgba(255, 255, 255, 0.02);
+  /*
+    섹션 구분 배경은 page.js의 ScrollReveal wrapper에서 관리합니다.
+    이 section에 배경을 두면 슬라이드 transform과 함께 배경까지 움직여 보일 수 있습니다.
+  */
 `;
 
 const Header = styled(Container)`

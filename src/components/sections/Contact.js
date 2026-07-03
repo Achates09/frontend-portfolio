@@ -17,7 +17,13 @@ const Panel = styled(Container)`
   border-radius: 8px;
   padding-top: 42px;
   padding-bottom: 42px;
-  background: linear-gradient(135deg, rgba(102, 217, 198, 0.13), rgba(246, 193, 119, 0.08));
+  /*
+    body의 radial-gradient가 반투명 패널 뒤로 비치면 위치마다 배경색이 달라 보입니다.
+    불투명한 surface 색을 먼저 깔고, 그 위에 얇은 강조 그라데이션만 올려 패널 내부 색을 균일하게 유지합니다.
+  */
+  background:
+    linear-gradient(135deg, rgba(102, 217, 198, 0.13), rgba(246, 193, 119, 0.08)),
+    ${({ theme }) => theme.colors.surface};
 
   @media (max-width: ${({ theme }) => theme.device.tablet}) {
     grid-template-columns: 1fr;
@@ -63,7 +69,7 @@ const LinkButton = styled.a`
   border-radius: 8px;
   padding: 0 18px;
   color: ${({ $primary, theme }) => ($primary ? theme.colors.background : theme.colors.text)};
-  background: ${({ $primary, theme }) => ($primary ? theme.colors.primary : 'rgba(11, 15, 20, 0.52)')};
+  background: ${({ $primary, theme }) => ($primary ? theme.colors.primary : theme.colors.surfaceAlt)};
   font-weight: 800;
 `;
 
