@@ -86,10 +86,11 @@ const Wrapper = styled.div`
         : 'transparent'};
 
   /*
-    overflow hidden은 가로로 멀리 떨어진 시작 위치의 콘텐츠가
-    화면 밖에서 들어오기 전 옆 섹션 위로 삐져나오는 것을 막습니다.
+    좌우 reveal에서만 overflow를 막아 화면 밖 시작 위치의 콘텐츠가
+    옆 섹션 위로 삐져나오는 것을 방지합니다.
+    위로 등장하는 긴 섹션은 카드 목록이 늘어나도 세로 방향으로 잘리지 않아야 합니다.
   */
-  overflow: hidden;
+  overflow: ${({ $direction }) => ($direction === 'left' || $direction === 'right' ? 'hidden' : 'visible')};
 `;
 
 const Motion = styled.div`
@@ -163,8 +164,8 @@ const ScrollReveal = ({ children, direction = 'up', delay = 0, background = 'def
         }
       },
       {
-        // threshold를 낮추면 더 일찍, 높이면 더 많이 들어왔을 때 애니메이션이 시작됩니다.
-        threshold: 0.3,
+        // 긴 섹션은 화면에 들어와도 교차 비율이 낮을 수 있으므로 이른 시점에 안정적으로 노출합니다.
+        threshold: 0.08,
         // 아래쪽 여백을 음수로 주면, 요소가 화면 하단에 닿기 전에 미리 등장합니다.
         rootMargin: '0px 0px -10% 0px',
       },
@@ -182,7 +183,7 @@ const ScrollReveal = ({ children, direction = 'up', delay = 0, background = 'def
       Wrapper는 배경과 overflow를 담당하고, Motion은 실제 콘텐츠 이동을 담당합니다.
       두 레이어를 나누면 배경 밴드는 고정된 채 콘텐츠만 자연스럽게 등장합니다.
     */
-    <Wrapper ref={ref} $background={background}>
+    <Wrapper ref={ref} $background={background} $direction={direction}>
       <Motion $visible={visible} $direction={direction} $delay={delay}>
         {children}
       </Motion>
