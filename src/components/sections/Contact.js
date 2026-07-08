@@ -21,9 +21,7 @@ const Panel = styled(Container)`
     body의 radial-gradient가 반투명 패널 뒤로 비치면 위치마다 배경색이 달라 보입니다.
     불투명한 surface 색을 먼저 깔고, 그 위에 얇은 강조 그라데이션만 올려 패널 내부 색을 균일하게 유지합니다.
   */
-  background:
-    linear-gradient(135deg, rgba(102, 217, 198, 0.13), rgba(246, 193, 119, 0.08)),
-    ${({ theme }) => theme.colors.surface};
+  background: linear-gradient(135deg, rgba(102, 217, 198, 0.13), rgba(246, 193, 119, 0.08)), ${({ theme }) => theme.colors.surface};
 
   @media (max-width: ${({ theme }) => theme.device.tablet}) {
     grid-template-columns: 1fr;
@@ -86,9 +84,9 @@ const Contact = ({ data }) => {
           <LinkButton $primary href={`mailto:${data.email}`}>
             Send Mail
           </LinkButton>
-          <LinkButton href={data.githubUrl} target="_blank" rel="noreferrer">
+          {/* <LinkButton href={data.githubUrl} target="_blank" rel="noreferrer">
             GitHub 보기
-          </LinkButton>
+          </LinkButton> */}
         </Actions>
       </Panel>
     </Section>

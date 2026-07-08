@@ -1,13 +1,16 @@
 // 포트폴리오 화면에 표시할 실제 데이터 원본입니다.
 // API나 CMS를 붙이기 전까지는 이 파일의 내용을 수정하면 됩니다.
+const email = 'srw0901@gmail.com';
+const githubUrl = 'https://github.com/Achates09/';
+
 export const portfolioData = {
   hero: {
-    eyebrow: 'Frontend Developer Portfolio / 2026',
+    eyebrow: `Frontend Developer Portfolio / ${new Date().getFullYear()}`,
     titlePrefix: '사용자 흐름을 설계하고',
     titleAccent: '견고한 UI',
     titleSuffix: '로 구현합니다.',
     description: 'React와 Next.js를 중심으로 제품의 첫 화면부터 상태 관리, 비동기 플로우, 배포까지 연결하는 프론트엔드 개발자 위석량입니다.',
-    email: 'hello@example.com',
+    email,
     stack: ['React', 'Next.js', 'Redux'],
     asyncFlow: 'Redux-Saga',
     styling: 'styled-components',
@@ -21,7 +24,7 @@ export const portfolioData = {
     stats: [
       { value: '3+', label: 'Years Experience' },
       { value: '12', label: 'Shipped Features' },
-      { value: '4', label: 'Main Projects' },
+      { value: '4', label: 'Career Works' },
     ],
   },
   experiences: [
@@ -48,7 +51,7 @@ export const portfolioData = {
           },
           summary: 'SK Broadband의 인터넷 모뎀을 원격으로 실시간 테스트 및 펌웨어 업데이트 하는 등 자동화 시스템 관리자 페이지 개발',
           items: [
-            'SKP(SK Planet, 백엔드 api 개발)와 협업하여 화면 UI 개발 및 api 기능 연동 작업',
+            'SK Planet(SK Broadband 자회사, 백엔드 api 개발)와 협업하여 화면 UI 개발 및 api 기능 연동 작업',
             '설정 페이지, 펌웨어 업데이트 페이지, 원격 테스트 Step 별 페이지 등 기능 개발',
           ],
         },
@@ -74,7 +77,7 @@ export const portfolioData = {
             ios: [],
             android: [],
           },
-          summary: '운영자가 고객 관리 프로세스를 직접 구성할 수 있는 워크플로우 빌더를 구현했습니다.',
+          summary: '이누씨의 솔루션, SEDN V2의 관리자 페이지 및 사용자 페이지 프론트엔드 개발',
           items: [
             'CMS(관리자 페이지) 및 사용자 페이지 화면 UI 개발 및 기능 개발',
             '기간이 긴 이유는 초기 개발 완료 후 납품마다 납품처별 커스텀 개발이 진행되었기 때문입니다.',
@@ -192,7 +195,7 @@ export const portfolioData = {
   skills: [
     {
       title: 'Core',
-      skills: ['React.js', 'Next.js', 'JavaScript', 'TypeScript', 'HTML5', 'CSS3'],
+      skills: ['React.js', 'Next.js', 'JavaScript', 'HTML5', 'CSS3'],
     },
     {
       title: 'State & Async',
@@ -200,36 +203,50 @@ export const portfolioData = {
     },
     {
       title: 'Styling & Tooling',
-      skills: ['styled-components', 'Git', 'ESLint', 'Prettier', 'Vercel'],
+      skills: ['styled-components', 'Git', 'ESLint', 'Prettier'],
     },
   ],
-  projects: [
+  education: [
     {
-      title: 'Orbit CRM Dashboard',
-      period: '2025.08 - 2025.11',
-      description: '영업 파이프라인, 고객 활동 로그, 권한별 액션을 한 화면에서 관리하는 B2B CRM 대시보드입니다.',
-      stack: ['Next.js', 'Redux', 'Redux-Saga', 'styled-components'],
-      points: ['필터 상태 URL 동기화', '권한 기반 메뉴 렌더링', '대량 액션 진행률 표시'],
+      category: 'Education',
+      title: 'Full Immersive 30기 프론트엔드 개발 학습 과정',
+      organization: '코드스테이츠 부트캠프',
+      period: '2021.05 - 2021.10',
+      status: '수료',
+      description: 'HTML, CSS, JavaScript 기초부터 React 기반 화면 구현까지 실습 중심으로 프론트엔드 개발에 필요한 기본기를 학습했습니다.',
+      details: [
+        'JavaScript DOM 조작 및 이벤트 처리 학습',
+        'React 컴포넌트 구조와 상태 관리 기초 학습',
+        '반응형 웹 페이지 제작 실습',
+        '팀 프로젝트를 통한 웹 서비스 개발 경험',
+      ],
+      tags: ['HTML5', 'CSS3', 'JavaScript', 'React', 'node.js', 'Git', 'REST API'],
     },
     {
-      title: 'Market Flow Commerce',
-      period: '2024.12 - 2025.03',
-      description: '프로모션, 장바구니, 결제 상태를 다루는 커머스 프론트엔드 목업 프로젝트입니다.',
-      stack: ['React', 'Redux Toolkit', 'Axios', 'Vercel'],
-      points: ['주문 단계 상태 모델링', '쿠폰/배송비 계산 UI', '반응형 상품 상세'],
+      category: 'Education',
+      title: '경제학 전공',
+      organization: '명지대학교',
+      period: '2009.03 - 2015.08',
+      status: '졸업',
+      description: '',
+      details: [],
+      tags: [],
     },
-    {
-      title: 'Team Pulse Workspace',
-      period: '2024.05 - 2024.07',
-      description: '팀 회고와 업무 컨디션을 시각화하는 협업 도구로, 차트와 폼 UX에 집중했습니다.',
-      stack: ['Next.js', 'React Query', 'TypeScript', 'Chart UI'],
-      points: ['폼 검증 패턴 정리', '데이터 로딩 스켈레톤', '접근성 라벨 개선'],
-    },
+    // {
+    //   category: 'Certificate',
+    //   title: '정보처리기사',
+    //   organization: '한국산업인력공단',
+    //   period: '2021.08',
+    //   status: '취득',
+    //   description: '소프트웨어 설계, 개발, 데이터베이스 구축, 프로그래밍 언어 활용 등 개발 실무 기반 지식을 검증하는 국가기술자격입니다.',
+    //   details: ['소프트웨어 생명주기와 요구사항 분석 학습', '관계형 데이터베이스와 SQL 활용 역량 검증', '프로그래밍 언어와 정보 시스템 구축 지식 확인'],
+    //   tags: ['Certificate', 'Software Engineering', 'SQL'],
+    // },
   ],
   contact: {
     title: '좋은 제품을 함께 만들 준비가 되어 있습니다.',
-    copy: '채용, 협업, 프로젝트 피드백 모두 환영합니다. 실제 연락처가 준비되면 아래 더미 이메일과 링크만 교체하면 됩니다.',
-    email: 'hello@example.com',
-    githubUrl: 'https://github.com/',
+    copy: '채용, 협업, 프로젝트 피드백 모두 환영합니다.',
+    email,
+    githubUrl,
   },
 };

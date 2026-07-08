@@ -28,7 +28,7 @@ const GlobalStyle = createGlobalStyle`
     color: ${({ theme }) => theme.colors.text};
     /*
       body의 radial-gradient는 전체 페이지의 분위기용 배경입니다.
-      Experience/Projects처럼 균일한 섹션 배경이 필요한 곳은 ScrollReveal의 불투명한 sectionAlt 색을 사용해
+      Experience/Education처럼 균일한 섹션 배경이 필요한 곳은 ScrollReveal의 불투명한 sectionAlt 색을 사용해
       이 그라데이션이 리스트 뒤로 비치지 않게 합니다.
     */
     background:

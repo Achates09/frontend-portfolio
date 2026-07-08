@@ -32,14 +32,14 @@ const Footer = () => {
   return (
     <Wrapper>
       <Inner>
-        <p>© 2026 Hong Gil Dong. Built with Next.js and styled-components.</p>
+        <p>{`© ${new Date().getFullYear()} Wi Seok Ryang. Built with Next.js and styled-components.`}</p>
         <Links>
-          <a href="https://github.com/" target="_blank" rel="noreferrer">
+          {/* <a href="https://github.com/" target="_blank" rel="noreferrer">
             GitHub
           </a>
           <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">
             LinkedIn
-          </a>
+          </a> */}
         </Links>
       </Inner>
     </Wrapper>

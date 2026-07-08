@@ -3,9 +3,9 @@ import Footer from '@/components/common/Footer';
 import ScrollReveal from '@/components/common/ScrollReveal';
 import About from '@/components/sections/About';
 import Contact from '@/components/sections/Contact';
+import Education from '@/components/sections/Education';
 import Experience from '@/components/sections/Experience';
 import Hero from '@/components/sections/Hero';
-import Projects from '@/components/sections/Projects';
 import Skills from '@/components/sections/Skills';
 import StoreProvider from '@/redux/StoreProvider';
 import { loadPortfolioStateOnServer } from '@/redux/serverPortfolioStore';
@@ -43,7 +43,7 @@ export default async function Home() {
           <Skills groups={portfolio.skills} />
         </ScrollReveal>
         <ScrollReveal direction="up" background="subtle">
-          <Projects items={portfolio.projects} />
+          <Education items={portfolio.education} />
         </ScrollReveal>
         {/* Contact는 패널 바깥 여백이 넓어서 body 그라데이션이 비치면 좌측 하단이 밝게 튈 수 있습니다.
             base 배경으로 섹션 전체를 덮어 주변 배경과 안정적으로 이어지게 합니다. */}

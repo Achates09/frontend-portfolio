@@ -67,7 +67,9 @@ const Button = styled.a`
   color: ${({ $primary, theme }) => ($primary ? theme.colors.background : theme.colors.text)};
   background: ${({ $primary, theme }) => ($primary ? theme.colors.primary : 'transparent')};
   font-weight: 800;
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease;
 
   &:hover {
     transform: translateY(-2px);
@@ -112,8 +114,8 @@ const Code = styled.pre`
 `;
 
 const Hero = ({ data }) => {
-  const stackText = data.stack.map((item) => `'${item}'`).join(', ');
-  const focusText = data.focus.map((item) => `'${item}'`).join(', ');
+  const stackText = data.stack.map(item => `'${item}'`).join(', ');
+  const focusText = data.focus.map(item => `'${item}'`).join(', ');
 
   return (
     <Wrapper id="top">
@@ -121,12 +123,13 @@ const Hero = ({ data }) => {
         <div>
           <Eyebrow>{data.eyebrow}</Eyebrow>
           <Title>
-            {data.titlePrefix} <Accent>{data.titleAccent}</Accent>{data.titleSuffix}
+            {data.titlePrefix} <Accent>{data.titleAccent}</Accent>
+            {data.titleSuffix}
           </Title>
           <Description>{data.description}</Description>
           <Actions>
-            <Button $primary href="#projects">
-              프로젝트 보기
+            <Button $primary href="#experience">
+              경력 보기
             </Button>
             <Button href={`mailto:${data.email}`}>{data.email}</Button>
           </Actions>

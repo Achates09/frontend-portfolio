@@ -7,7 +7,7 @@ const navItems = [
   { href: '#about', label: 'About' },
   { href: '#experience', label: 'Experience' },
   { href: '#skills', label: 'Skills' },
-  { href: '#projects', label: 'Projects' },
+  { href: '#education', label: 'Education' },
   { href: '#contact', label: 'Contact' },
 ];
 
@@ -73,11 +73,11 @@ const Navbar = () => {
     <Header>
       <Inner>
         <Logo href="#top" aria-label="홈으로 이동">
-          <Mark>H</Mark>
-          Hong.dev
+          <Mark>W</Mark>
+          Kevin.dev
         </Logo>
         <Links aria-label="주요 섹션">
-          {navItems.map((item) => (
+          {navItems.map(item => (
             <NavLink key={item.href} href={item.href}>
               {item.label}
             </NavLink>
