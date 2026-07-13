@@ -35,7 +35,7 @@ const Number = styled.p`
 
 const Title = styled.h2`
   margin-top: 10px;
-  font-size: clamp(34px, 5vw, 56px);
+  font-size: clamp(34px, 5vw, 50px);
   line-height: 1.15;
 `;
 
