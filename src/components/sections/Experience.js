@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import styled from 'styled-components';
 import Container from '@/components/common/Container';
 
@@ -61,6 +62,43 @@ const CompanyGroup = styled.article`
 const ProjectGrid = styled.div`
   display: grid;
   gap: 16px;
+`;
+
+const ProjectList = styled.div`
+  display: grid;
+  gap: 16px;
+`;
+
+const ProjectToggleButton = styled.button`
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+  justify-self: center;
+  min-width: 112px;
+  border: 1px solid rgba(102, 217, 198, 0.46);
+  border-radius: 999px;
+  padding: 10px 18px;
+  color: ${({ theme }) => theme.colors.primary};
+  font: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  background: rgba(102, 217, 198, 0.08);
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(102, 217, 198, 0.16);
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.primary};
+    outline-offset: 3px;
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
 `;
 
 const ProjectCard = styled.div`
@@ -314,6 +352,16 @@ const hasProjectMeta = project =>
   hasItems(getStoreLinks(project.storeLinks));
 
 const Experience = ({ items }) => {
+  // 경력별 프로젝트 목록의 펼침 여부를 고유 키 기준으로 관리합니다.
+  const [expandedExperiences, setExpandedExperiences] = useState({});
+
+  const toggleProjects = experienceKey => {
+    setExpandedExperiences(current => ({
+      ...current,
+      [experienceKey]: !current[experienceKey],
+    }));
+  };
+
   return (
     <Section id="experience">
       <Inner>
@@ -326,109 +374,135 @@ const Experience = ({ items }) => {
         </Header>
 
         <List>
-          {items.map(experience => (
-            <CompanyGroup key={experience.company}>
-              <Meta>
-                <Company>{experience.company}</Company>
-                <CompanyPeriod>{experience.period}</CompanyPeriod>
-                <CompanyDetailList>
-                  <CompanyDetail>
-                    <CompanyDetailLabel>부서</CompanyDetailLabel>
-                    <CompanyDetailValue>{experience.department}</CompanyDetailValue>
-                  </CompanyDetail>
-                  <CompanyDetail>
-                    <CompanyDetailLabel>직책</CompanyDetailLabel>
-                    <CompanyDetailValue>{experience.position}</CompanyDetailValue>
-                  </CompanyDetail>
-                  <CompanyDetail>
-                    <CompanyDetailLabel>역할</CompanyDetailLabel>
-                    <CompanyDetailValue>{experience.role}</CompanyDetailValue>
-                  </CompanyDetail>
-                </CompanyDetailList>
-                {hasText(experience.description) && <CompanyDescription>{experience.description}</CompanyDescription>}
-              </Meta>
+          {items.map((experience, experienceIndex) => {
+            const experienceKey = `${experience.company}-${experience.period}-${experienceIndex}`;
+            const projects = experience.projects ?? [];
+            const isExpanded = Boolean(expandedExperiences[experienceKey]);
+            // 접힌 상태에서는 첫 프로젝트만, 펼친 상태에서는 전체 프로젝트를 노출합니다.
+            const visibleProjects = isExpanded ? projects : projects.slice(0, 1);
+            const projectGridId = `experience-projects-${experienceIndex}`;
 
-              <ProjectGrid>
-                {experience.projects.map(project => (
-                  <ProjectCard key={project.title}>
-                    <ProjectHeader>
-                      <div>
-                        <ProjectTitle>{project.title}</ProjectTitle>
-                        <Role>{project.role}</Role>
-                      </div>
-                      <Period>{project.period}</Period>
-                    </ProjectHeader>
-                    <div>
-                      <Summary>{project.summary}</Summary>
-                      {hasProjectMeta(project) && (
-                        <ProjectMeta>
-                          {hasText(project.associatedCompany) && (
-                            <ProjectMetaRow>
-                              <ProjectMetaLabel>연계 회사</ProjectMetaLabel>
-                              <ProjectMetaValue>{project.associatedCompany}</ProjectMetaValue>
-                            </ProjectMetaRow>
+            return (
+              <CompanyGroup key={experienceKey}>
+                <Meta>
+                  <Company>{experience.company}</Company>
+                  <CompanyPeriod>{experience.period}</CompanyPeriod>
+                  <CompanyDetailList>
+                    <CompanyDetail>
+                      <CompanyDetailLabel>부서</CompanyDetailLabel>
+                      <CompanyDetailValue>{experience.department}</CompanyDetailValue>
+                    </CompanyDetail>
+                    <CompanyDetail>
+                      <CompanyDetailLabel>직책</CompanyDetailLabel>
+                      <CompanyDetailValue>{experience.position}</CompanyDetailValue>
+                    </CompanyDetail>
+                    <CompanyDetail>
+                      <CompanyDetailLabel>역할</CompanyDetailLabel>
+                      <CompanyDetailValue>{experience.role}</CompanyDetailValue>
+                    </CompanyDetail>
+                  </CompanyDetailList>
+                  {hasText(experience.description) && <CompanyDescription>{experience.description}</CompanyDescription>}
+                </Meta>
+
+                <ProjectGrid>
+                  <ProjectList id={projectGridId}>
+                    {visibleProjects.map(project => (
+                      <ProjectCard key={project.title}>
+                        <ProjectHeader>
+                          <div>
+                            <ProjectTitle>{project.title}</ProjectTitle>
+                            <Role>{project.role}</Role>
+                          </div>
+                          <Period>{project.period}</Period>
+                        </ProjectHeader>
+                        <div>
+                          <Summary>{project.summary}</Summary>
+                          {hasProjectMeta(project) && (
+                            <ProjectMeta>
+                              {hasText(project.associatedCompany) && (
+                                <ProjectMetaRow>
+                                  <ProjectMetaLabel>연계 회사</ProjectMetaLabel>
+                                  <ProjectMetaValue>{project.associatedCompany}</ProjectMetaValue>
+                                </ProjectMetaRow>
+                              )}
+
+                              {(hasText(project.introUrl) || hasText(project.demoUrl)) && (
+                                <ProjectMetaRow>
+                                  <ProjectMetaLabel>링크</ProjectMetaLabel>
+                                  <InlineList>
+                                    {hasText(project.introUrl) && (
+                                      <ProjectLink href={project.introUrl} target="_blank" rel="noreferrer">
+                                        소개 페이지
+                                      </ProjectLink>
+                                    )}
+                                    {hasText(project.demoUrl) && (
+                                      <DemoLink href={project.demoUrl} target="_blank" rel="noreferrer">
+                                        데모 페이지
+                                      </DemoLink>
+                                    )}
+                                  </InlineList>
+                                </ProjectMetaRow>
+                              )}
+
+                              <StoreLinkRows storeLinks={project.storeLinks} />
+
+                              {hasItems(project.stack) && (
+                                <ProjectMetaRow>
+                                  <ProjectMetaLabel>주요 기술</ProjectMetaLabel>
+                                  <InlineList>
+                                    {project.stack.map(stack => (
+                                      <Tag key={stack}>#{stack}</Tag>
+                                    ))}
+                                  </InlineList>
+                                </ProjectMetaRow>
+                              )}
+
+                              {hasItems(project.clients) && (
+                                <ProjectMetaRow>
+                                  <ProjectMetaLabel>납품처</ProjectMetaLabel>
+                                  <InlineList>
+                                    {project.clients.map(client => {
+                                      return hasText(client.url) ? (
+                                        <ClientLink key={client.name} href={client.url} target="_blank" rel="noreferrer">
+                                          {client.name}
+                                        </ClientLink>
+                                      ) : (
+                                        <Client key={client.name}>{client.name}</Client>
+                                      );
+                                    })}
+                                  </InlineList>
+                                </ProjectMetaRow>
+                              )}
+                            </ProjectMeta>
                           )}
-
-                          {(hasText(project.introUrl) || hasText(project.demoUrl)) && (
-                            <ProjectMetaRow>
-                              <ProjectMetaLabel>링크</ProjectMetaLabel>
-                              <InlineList>
-                                {hasText(project.introUrl) && (
-                                  <ProjectLink href={project.introUrl} target="_blank" rel="noreferrer">
-                                    소개 페이지
-                                  </ProjectLink>
-                                )}
-                                {hasText(project.demoUrl) && (
-                                  <DemoLink href={project.demoUrl} target="_blank" rel="noreferrer">
-                                    데모 페이지
-                                  </DemoLink>
-                                )}
-                              </InlineList>
-                            </ProjectMetaRow>
-                          )}
-
-                          <StoreLinkRows storeLinks={project.storeLinks} />
-
-                          {hasItems(project.stack) && (
-                            <ProjectMetaRow>
-                              <ProjectMetaLabel>주요 기술</ProjectMetaLabel>
-                              <InlineList>
-                                {project.stack.map(stack => (
-                                  <Tag key={stack}>#{stack}</Tag>
-                                ))}
-                              </InlineList>
-                            </ProjectMetaRow>
-                          )}
-
-                          {hasItems(project.clients) && (
-                            <ProjectMetaRow>
-                              <ProjectMetaLabel>납품처</ProjectMetaLabel>
-                              <InlineList>
-                                {project.clients.map(client => {
-                                  return hasText(client.url) ? (
-                                    <ClientLink key={client.name} href={client.url} target="_blank" rel="noreferrer">
-                                      {client.name}
-                                    </ClientLink>
-                                  ) : (
-                                    <Client key={client.name}>{client.name}</Client>
-                                  );
-                                })}
-                              </InlineList>
-                            </ProjectMetaRow>
-                          )}
-                        </ProjectMeta>
-                      )}
-                      <BulletList>
-                        {project.items.map(item => (
-                          <li key={item}>{item}</li>
-                        ))}
-                      </BulletList>
-                    </div>
-                  </ProjectCard>
-                ))}
-              </ProjectGrid>
-            </CompanyGroup>
-          ))}
+                          <BulletList>
+                            {project.items.map(item => (
+                              <li key={item}>{item}</li>
+                            ))}
+                          </BulletList>
+                        </div>
+                      </ProjectCard>
+                    ))}
+                  </ProjectList>
+                  {/* 프로젝트가 여러 개일 때만 더보기/접기 버튼을 노출합니다. */}
+                  {projects.length > 1 && (
+                    <ProjectToggleButton type="button" aria-expanded={isExpanded} aria-controls={projectGridId} onClick={() => toggleProjects(experienceKey)}>
+                      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path
+                          d={isExpanded ? 'M5 15 12 8l7 7' : 'M5 9l7 7 7-7'}
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                      {isExpanded ? '접기' : '더보기'}
+                    </ProjectToggleButton>
+                  )}
+                </ProjectGrid>
+              </CompanyGroup>
+            );
+          })}
         </List>
       </Inner>
     </Section>
