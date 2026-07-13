@@ -1,6 +1,7 @@
 import Navbar from '@/components/common/Navbar';
 import Footer from '@/components/common/Footer';
 import ScrollReveal from '@/components/common/ScrollReveal';
+import ScrollToTop from '@/components/common/ScrollToTop';
 import About from '@/components/sections/About';
 import Contact from '@/components/sections/Contact';
 import Education from '@/components/sections/Education';
@@ -52,6 +53,7 @@ export default async function Home() {
         </ScrollReveal>
       </main>
       <Footer />
+      <ScrollToTop />
     </StoreProvider>
   );
 }
