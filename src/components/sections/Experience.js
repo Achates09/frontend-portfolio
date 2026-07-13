@@ -250,11 +250,9 @@ const DemoLink = styled(ProjectLink)`
 `;
 
 const StoreProjectLink = styled(ExternalLink)`
-  border-color: ${({ $platform }) =>
-    $platform === 'android' ? 'rgba(52, 168, 83, 0.56)' : 'rgba(138, 173, 244, 0.52)'};
+  border-color: ${({ $platform }) => ($platform === 'android' ? 'rgba(52, 168, 83, 0.56)' : 'rgba(138, 173, 244, 0.52)')};
   color: ${({ $platform, theme }) => ($platform === 'android' ? '#34a853' : theme.colors.accent)};
-  background: ${({ $platform }) =>
-    $platform === 'android' ? 'rgba(52, 168, 83, 0.1)' : 'rgba(138, 173, 244, 0.1)'};
+  background: ${({ $platform }) => ($platform === 'android' ? 'rgba(52, 168, 83, 0.1)' : 'rgba(138, 173, 244, 0.1)')};
   line-height: normal;
 `;
 
@@ -272,13 +270,9 @@ const hasText = value => typeof value === 'string' && value.trim().length > 0;
 
 const hasItems = value => Array.isArray(value) && value.length > 0;
 
-const getPlatformStoreLinks = (storeLinks, platform) =>
-  (storeLinks?.[platform] ?? []).filter(link => hasText(link.name) || hasText(link.url));
+const getPlatformStoreLinks = (storeLinks, platform) => (storeLinks?.[platform] ?? []).filter(link => hasText(link.name) || hasText(link.url));
 
-const getStoreLinks = storeLinks => [
-  ...getPlatformStoreLinks(storeLinks, 'ios'),
-  ...getPlatformStoreLinks(storeLinks, 'android'),
-];
+const getStoreLinks = storeLinks => [...getPlatformStoreLinks(storeLinks, 'ios'), ...getPlatformStoreLinks(storeLinks, 'android')];
 
 const STORE_LINK_GROUPS = [
   { key: 'ios', label: 'iOS' },
@@ -328,7 +322,7 @@ const Experience = ({ items }) => {
             <Number>02.</Number>
             <Title>Experience</Title>
           </div>
-          <Lead>제품 요구사항을 화면, 상태, API 흐름으로 번역하고 팀이 유지보수하기 쉬운 구조로 정리한 경험을 중심으로 구성했습니다.</Lead>
+          {/* <Lead>제품 요구사항을 화면, 상태, API 흐름으로 번역하고 팀이 유지보수하기 쉬운 구조로 정리한 경험을 중심으로 구성했습니다.</Lead> */}
         </Header>
 
         <List>

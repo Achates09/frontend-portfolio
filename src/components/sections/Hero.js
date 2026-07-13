@@ -23,7 +23,7 @@ const Grid = styled(Container)`
   gap: 48px;
 
   @media (max-width: 1100px) {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 48px;
   }
 `;
@@ -106,6 +106,7 @@ const Button = styled.a`
 `;
 
 const Snapshot = styled.aside`
+  min-width: 0;
   border: 1px solid ${({ theme }) => theme.colors.line};
   border-radius: 8px;
   background: rgba(18, 24, 32, 0.74);
@@ -157,7 +158,9 @@ const Hero = ({ data }) => {
               {data.titleSuffix}
             </TitleLine>
           </Title>
+
           <Description>{data.description}</Description>
+
           <Actions>
             <Button $primary href="#experience">
               경력 보기
@@ -165,6 +168,7 @@ const Hero = ({ data }) => {
             <Button href={`mailto:${data.email}`}>{data.email}</Button>
           </Actions>
         </div>
+
         <Snapshot aria-label="기술 스택 요약">
           <SnapshotHeader>
             <Dot $color="#ff6b6b" />
