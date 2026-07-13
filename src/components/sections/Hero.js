@@ -9,16 +9,22 @@ const Wrapper = styled.section`
   display: flex;
   align-items: center;
   padding: 72px 0 96px;
+
+  @media (max-width: ${({ theme }) => theme.device.mobile}) {
+    min-height: auto;
+    padding: 56px 0 72px;
+  }
 `;
 
 const Grid = styled(Container)`
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+  grid-template-columns: minmax(0, 1.3fr) minmax(320px, 0.7fr);
   align-items: center;
-  gap: 56px;
+  gap: 48px;
 
-  @media (max-width: ${({ theme }) => theme.device.tablet}) {
+  @media (max-width: 1100px) {
     grid-template-columns: 1fr;
+    gap: 48px;
   }
 `;
 
@@ -30,11 +36,26 @@ const Eyebrow = styled.p`
 `;
 
 const Title = styled.h1`
-  max-width: 790px;
-  font-size: clamp(46px, 7vw, 88px);
+  max-width: 820px;
+  font-size: clamp(44px, 6vw, 72px);
   font-weight: 900;
-  line-height: 1.05;
-  letter-spacing: 0;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  word-break: keep-all;
+  /* text-wrap: balance; */
+
+  @media (max-width: ${({ theme }) => theme.device.mobile}) {
+    font-size: clamp(38px, 11vw, 52px);
+    line-height: 1.12;
+  }
+`;
+
+const TitleLine = styled.span`
+  display: block;
+
+  & + & {
+    margin-top: 0.08em;
+  }
 `;
 
 const Accent = styled.span`
@@ -42,11 +63,18 @@ const Accent = styled.span`
 `;
 
 const Description = styled.p`
-  max-width: 680px;
+  max-width: 720px;
   margin-top: 28px;
   color: ${({ theme }) => theme.colors.textMuted};
-  font-size: 20px;
-  line-height: 1.8;
+  font-size: clamp(17px, 1.6vw, 20px);
+  line-height: 1.75;
+  word-break: keep-all;
+  /* text-wrap: pretty; */
+
+  @media (max-width: ${({ theme }) => theme.device.mobile}) {
+    margin-top: 22px;
+    line-height: 1.7;
+  }
 `;
 
 const Actions = styled.div`
@@ -123,8 +151,11 @@ const Hero = ({ data }) => {
         <div>
           <Eyebrow>{data.eyebrow}</Eyebrow>
           <Title>
-            {data.titlePrefix} <Accent>{data.titleAccent}</Accent>
-            {data.titleSuffix}
+            <TitleLine>{data.titlePrefix}</TitleLine>
+            <TitleLine>
+              <Accent>{data.titleAccent}</Accent>
+              {data.titleSuffix}
+            </TitleLine>
           </Title>
           <Description>{data.description}</Description>
           <Actions>

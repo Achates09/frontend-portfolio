@@ -6,15 +6,17 @@ const githubUrl = 'https://github.com/Achates09/';
 export const portfolioData = {
   hero: {
     eyebrow: `Frontend Developer Portfolio / ${new Date().getFullYear()}`,
-    titlePrefix: '사용자 흐름을 설계하고',
-    titleAccent: '견고한 UI',
-    titleSuffix: '로 구현합니다.',
-    description: 'React와 Next.js를 중심으로 제품의 첫 화면부터 상태 관리, 비동기 플로우, 배포까지 연결하는 프론트엔드 개발자 위석량입니다.',
+    titlePrefix: '함께 방향을 맞추고',
+    titleAccent: '더 나은 사용자 경험',
+    titleSuffix: '을 구현합니다.',
+    // description: 'React와 Next.js를 중심으로 제품의 첫 화면부터 상태 관리, 비동기 플로우, 배포까지 연결하는 프론트엔드 개발자 위석량입니다.',
+    description:
+      '기획자, 디자이너, 백엔드 개발자와 요구사항을 구체화하고, 사용자와 팀 모두가 이해하기 쉬운 화면과 구조를 만드는 프론트엔드 개발자 위석량입니다.',
     email,
     stack: ['React', 'Next.js', 'Redux'],
     asyncFlow: 'Redux-Saga',
     styling: 'styled-components',
-    focus: ['UX', 'Performance', 'Scalability'],
+    focus: ['UX', 'Communication', 'Maintainability'],
   },
   about: {
     paragraphs: [
@@ -199,7 +201,7 @@ export const portfolioData = {
     },
     {
       title: 'State & Async',
-      skills: ['Redux', 'Redux-Saga', 'React Query', 'Axios', 'REST API'],
+      skills: ['Redux', 'Redux-Saga'],
     },
     {
       title: 'Styling & Tooling',
