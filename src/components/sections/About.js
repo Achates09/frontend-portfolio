@@ -29,6 +29,34 @@ const Title = styled.h2`
   line-height: 1.2;
 `;
 
+// 생년월일과 지역을 설명 목록으로 묶고 각 항목을 세로로 배치합니다.
+const Profile = styled.dl`
+  display: grid;
+  gap: 10px;
+  margin-top: 20px;
+`;
+
+const ProfileItem = styled.div`
+  display: grid;
+  /* Experience의 CompanyDetail처럼 라벨 열을 고정해 모든 값의 시작 위치를 맞춥니다. */
+  grid-template-columns: 64px 1fr;
+  gap: 10px;
+  align-items: center;
+`;
+
+// 라벨은 보조 색상으로, 실제 프로필 값은 더 크고 굵게 구분합니다.
+const ProfileLabel = styled.dt`
+  color: ${({ theme }) => theme.colors.textMuted};
+  font-size: 15px;
+`;
+
+const ProfileValue = styled.dd`
+  margin: 0;
+  color: ${({ theme }) => theme.colors.text};
+  font-size: 17px;
+  font-weight: 700;
+`;
+
 const Copy = styled.div`
   display: grid;
   gap: 18px;
@@ -76,6 +104,16 @@ const About = ({ data }) => {
         <div>
           <Number>01.</Number>
           <Title>About Me</Title>
+          <Profile>
+            <ProfileItem>
+              <ProfileLabel>Birth</ProfileLabel>
+              <ProfileValue>{data.birthDate}</ProfileValue>
+            </ProfileItem>
+            <ProfileItem>
+              <ProfileLabel>Location</ProfileLabel>
+              <ProfileValue>{data.location}</ProfileValue>
+            </ProfileItem>
+          </Profile>
         </div>
         <div>
           <Copy>

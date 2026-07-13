@@ -19,6 +19,8 @@ export const portfolioData = {
     focus: ['UX', 'Communication', 'Maintainability'],
   },
   about: {
+    birthDate: '1990.09.01',
+    location: 'Seoul',
     paragraphs: [
       'React와 Next.js를 중심으로 관리자 CMS와 사용자 페이지를 개발해 왔습니다. 특히 장기간 운영한 미디어 시스템에서는 납품처마다 달라지는 요구사항을 템플릿 구조로 정리하며 유지보수성과 확장성을 함께 고민했습니다.',
       'SK Planet과의 API 연동부터 공공기관 방송 서비스, 법원TV STT 기능, 소아·청소년 멘탈케어 앱까지 다양한 프로젝트에 참여했습니다. 백엔드 개발자와 프로젝트 관계자들의 요구사항을 화면과 기능으로 구체화하며 웹과 모바일의 사용자 경험을 완성해 왔습니다.',
