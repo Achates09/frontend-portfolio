@@ -32,7 +32,7 @@ const Footer = () => {
   return (
     <Wrapper>
       <Inner>
-        <p>{`© ${new Date().getFullYear()} Wi Seok Ryang. Built with Next.js and styled-components.`}</p>
+        <p>{`© ${new Date().getFullYear()} Wi Seok Ryang. Built with Next.js.`}</p>
         <Links>
           {/* <a href="https://github.com/" target="_blank" rel="noreferrer">
             GitHub

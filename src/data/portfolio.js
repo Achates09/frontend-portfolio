@@ -20,13 +20,13 @@ export const portfolioData = {
   },
   about: {
     paragraphs: [
-      '복잡한 요구사항을 작은 컴포넌트와 명확한 데이터 흐름으로 나누는 일을 좋아합니다. Next.js 기반 서비스에서 페이지 구조, 렌더링 전략, 상태 관리 패턴을 설계하며 사용자 경험과 개발자 경험 사이의 균형을 고민합니다.',
-      '더미 경력 기준으로는 SaaS 대시보드, 커머스, 예약 플랫폼을 만들었고, Redux-Saga로 인증, 결제, 알림처럼 순서가 중요한 비동기 플로우를 다뤘습니다.',
+      'React와 Next.js를 중심으로 관리자 CMS와 사용자 페이지를 개발해 왔습니다. 특히 장기간 운영한 미디어 시스템에서는 납품처마다 달라지는 요구사항을 템플릿 구조로 정리하며 유지보수성과 확장성을 함께 고민했습니다.',
+      'SK Planet과의 API 연동부터 공공기관 방송 서비스, 법원TV STT 기능, 소아·청소년 멘탈케어 앱까지 다양한 프로젝트에 참여했습니다. 백엔드 개발자와 프로젝트 관계자들의 요구사항을 화면과 기능으로 구체화하며 웹과 모바일의 사용자 경험을 완성해 왔습니다.',
     ],
     stats: [
-      { value: '3+', label: 'Years Experience' },
-      { value: '12', label: 'Shipped Features' },
-      { value: '4', label: 'Career Works' },
+      { value: '4년', label: 'Frontend Experience' },
+      { value: '4개', label: 'Production Projects' },
+      { value: '3개', label: 'Released Mobile Apps' },
     ],
   },
   experiences: [
@@ -219,7 +219,7 @@ export const portfolioData = {
       details: [
         'JavaScript DOM 조작 및 이벤트 처리 학습',
         'React 컴포넌트 구조와 상태 관리 기초 학습',
-        '반응형 웹 페이지 제작 실습',
+        '웹 페이지 제작 실습',
         '팀 프로젝트를 통한 웹 서비스 개발 경험',
       ],
       tags: ['HTML5', 'CSS3', 'JavaScript', 'React', 'node.js', 'Git', 'REST API'],
