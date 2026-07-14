@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import styled from 'styled-components';
 import Container from './Container';
 
@@ -37,15 +38,11 @@ const Logo = styled.a`
   letter-spacing: 0;
 `;
 
-const Mark = styled.span`
-  display: grid;
+const Mark = styled(Image)`
+  display: block;
+  flex: 0 0 auto;
   width: 34px;
   height: 34px;
-  place-items: center;
-  border: 1px solid ${({ theme }) => theme.colors.line};
-  border-radius: 8px;
-  color: ${({ theme }) => theme.colors.background};
-  background: ${({ theme }) => theme.colors.primary};
 `;
 
 const Links = styled.nav`
@@ -73,7 +70,7 @@ const Navbar = () => {
     <Header>
       <Inner>
         <Logo href="#top" aria-label="홈으로 이동">
-          <Mark>W</Mark>
+          <Mark src="/navbar-mark.svg" alt="" width={34} height={34} unoptimized aria-hidden="true" />
           Kevin.dev
         </Logo>
         <Links aria-label="주요 섹션">
