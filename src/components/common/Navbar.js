@@ -12,6 +12,12 @@ const navItems = [
   { href: '#contact', label: 'Contact' },
 ];
 
+// GitHub Pages에서는 앱이 /frontend-portfolio 아래에 배포됩니다.
+// NEXT_PUBLIC_BASE_PATH는 .env에서 읽는 값이 아니라 next.config.mjs가 빌드 시 클라이언트 코드에 주입합니다.
+// 로컬에서는 빈 문자열이 주입되며, || ''는 설정이 없는 경우에도 루트 경로를 사용하게 하는 안전장치입니다.
+// next/image는 public 이미지에 basePath를 자동 적용하지 않으므로 빌드 설정에서 전달받아 직접 붙입니다.
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
 // 화면 상단에 고정되는 포트폴리오 섹션 내비게이션입니다.
 const Header = styled.header`
   position: sticky;
@@ -70,7 +76,7 @@ const Navbar = () => {
     <Header>
       <Inner>
         <Logo href="#top" aria-label="홈으로 이동">
-          <Mark src="/navbar-mark.svg" alt="" width={34} height={34} unoptimized aria-hidden="true" />
+          <Mark src={`${basePath}/navbar-mark.svg`} alt="" width={34} height={34} unoptimized aria-hidden="true" />
           Kevin.dev
         </Logo>
         <Links aria-label="주요 섹션">

@@ -1,0 +1,64 @@
+name: Deploy portfolio to GitHub Pages
+
+# 사이트를 내린 뒤 코드 push만으로 다시 공개되지 않도록 수동 실행만 허용합니다.
+# 배포할 때 GitHub의 Actions 탭에서 이 workflow의 Run workflow를 누릅니다.
+on:
+  workflow_dispatch:
+
+# Pages 배포에 필요한 최소 권한만 workflow에 부여합니다.
+# contents: read: 저장소 코드 읽기
+# pages: write: GitHub Pages에 배포
+# id-token: write: GitHub가 해당 workflow를 신뢰할 수 있는 배포 요청으로 인증
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 동시에 여러 배포가 실행되어도 진행 중인 배포를 강제로 취소하지 않습니다.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # GitHub Pages 배포 환경과 artifact 설정을 준비합니다.
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # 배포 전에 정적 분석을 통과해야만 다음 단계로 진행합니다.
+      - name: Run lint
+        run: npm run lint
+
+      # next.config.mjs의 output: 'export' 설정으로 out 디렉터리를 생성합니다.
+      - name: Build static site
+        run: npm run build
+
+      - name: Upload static site artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
