@@ -66,13 +66,14 @@ const ScrollToTop = () => {
   }, []);
 
   const scrollToTop = event => {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const topSection = document.getElementById('top');
 
-    // 이동 중 버튼이 숨겨질 때 포커스가 보이지 않는 요소에 남지 않도록 해제합니다.
-    event.currentTarget.blur();
-    window.scrollTo({
-      top: 0,
-      behavior: prefersReducedMotion ? 'auto' : 'smooth',
+    event.currentTarget.blur(); // 이동 중 버튼이 숨겨질 때 포커스가 보이지 않는 요소에 남지 않도록 해제합니다.
+    window.history.replaceState(null, '', '#top'); // 버튼 클릭 시 주소창의 기존 해시를 #top으로 교체
+
+    topSection?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
     });
   };
 
