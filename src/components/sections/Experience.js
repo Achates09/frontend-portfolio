@@ -379,7 +379,8 @@ const Experience = ({ items }) => {
             const projects = experience.projects ?? [];
             const isExpanded = Boolean(expandedExperiences[experienceKey]);
             // 접힌 상태에서는 첫 프로젝트만, 펼친 상태에서는 전체 프로젝트를 노출합니다.
-            const visibleProjects = isExpanded ? projects : projects.slice(0, 1);
+            // const visibleProjects = isExpanded ? projects : projects.slice(0, 1);
+            const visibleProjects = projects; // 전체 프로젝트가 다 보이도록 노출
             const projectGridId = `experience-projects-${experienceIndex}`;
 
             return (
@@ -484,8 +485,9 @@ const Experience = ({ items }) => {
                       </ProjectCard>
                     ))}
                   </ProjectList>
+
                   {/* 프로젝트가 여러 개일 때만 더보기/접기 버튼을 노출합니다. */}
-                  {projects.length > 1 && (
+                  {/* {projects.length > 1 && (
                     <ProjectToggleButton type="button" aria-expanded={isExpanded} aria-controls={projectGridId} onClick={() => toggleProjects(experienceKey)}>
                       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                         <path
@@ -498,7 +500,7 @@ const Experience = ({ items }) => {
                       </svg>
                       {isExpanded ? '접기' : '더보기'}
                     </ProjectToggleButton>
-                  )}
+                  )} */}
                 </ProjectGrid>
               </CompanyGroup>
             );
