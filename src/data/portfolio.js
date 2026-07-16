@@ -91,7 +91,7 @@ export const portfolioData = {
           ],
         },
         {
-          title: '법원도서관 법원TV 방송 페이지내 STT 기능 연동',
+          title: '법원도서관 법원TV 방송 페이지내 STT(Speech To Text) 기능 연동',
           role: 'Frontend Developer',
           period: '2024.11 ~ 2025.02',
           associatedCompany: '법원도서관',
