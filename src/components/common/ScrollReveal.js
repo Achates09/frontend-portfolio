@@ -74,15 +74,15 @@ const Wrapper = styled.div`
     바깥 Wrapper는 섹션의 실제 영역과 배경색을 고정해서 담당합니다.
     애니메이션 transform을 이 요소에 주면 배경 밴드까지 움직여서
     페이지의 컨텍스트 구분 영역과 배경색 영역이 어긋나 보일 수 있습니다.
-    base 배경은 body의 그라데이션을 덮어 특정 섹션 주변이 밝게 튀는 문제를 막습니다.
-    subtle 배경은 불투명한 색을 써서 body의 radial-gradient가 리스트 뒤로 비치지 않게 합니다.
+    base/subtle 배경은 불투명한 바탕색으로 섹션을 구분하되,
+    body와 같은 좌측 상단 강조 그라데이션을 각 섹션마다 반복해 디자인 흐름을 유지합니다.
   */
   /* background: 섹션 밴드의 시각적 바탕을 결정하며 Motion의 이동과 분리됩니다. */
   background: ${({ $background, theme }) =>
     $background === 'base'
-      ? theme.colors.background
+      ? `radial-gradient(circle at 12% 0%, rgba(102, 217, 198, 0.14), transparent 32rem), ${theme.colors.background}`
       : $background === 'subtle'
-        ? theme.colors.sectionAlt
+        ? `radial-gradient(circle at 12% 0%, rgba(102, 217, 198, 0.14), transparent 32rem), ${theme.colors.sectionAlt}`
         : 'transparent'};
 
   /*
