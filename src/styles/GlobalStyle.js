@@ -26,6 +26,12 @@ const GlobalStyle = createGlobalStyle`
     scroll-padding-top: 96px;
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
   html,
   body {
     /* 가로로 진입하는 애니메이션이나 큰 요소 때문에 수평 스크롤이 생기는 것을 방지합니다. */
@@ -69,6 +75,14 @@ const GlobalStyle = createGlobalStyle`
   textarea {
     /* 폼 요소가 브라우저 기본 폰트 대신 주변 텍스트 스타일을 상속하게 합니다. */
     font: inherit;
+  }
+
+  a,
+  button {
+    &:focus-visible {
+      outline: 3px solid ${({ theme }) => theme.colors.secondary};
+      outline-offset: 3px;
+    }
   }
 
   ::selection {
