@@ -6,6 +6,8 @@
 import adminTemplateSetting1 from '../../public/admin-templateSetting1.png';
 import adminTemplateSetting2 from '../../public/admin-templateSetting2.png';
 import userTemplate1 from '../../public/user-template1.png';
+import userTemplate2 from '../../public/user-template2.png';
+import userTemplate3 from '../../public/user-template3.png';
 
 // 포트폴리오 화면에 표시할 실제 데이터 원본입니다.
 // API나 CMS를 붙이기 전까지는 이 파일의 내용을 수정하면 됩니다.
@@ -63,10 +65,7 @@ export const portfolioData = {
             android: [],
           },
           summary: '인터넷 모뎀의 원격 테스트와 펌웨어 업데이트 과정을 운영자가 단계별로 관리하는 자동화 시스템 화면 API 연동 작업',
-          items: [
-            'SK Planet 백엔드 개발자와 API 명세 및 예외 흐름을 조율하고 관리자 UI에 연동',
-            '설정, 펌웨어 업데이트, 단계별 원격 테스트 화면을 공통 컴포넌트 구조로 구현',
-          ],
+          items: ['SK Planet 백엔드 개발자와 API 명세 및 예외 흐름을 조율하고 관리자 UI에 연동', '설정, 펌웨어 업데이트, 단계별 원격 테스트 화면 API 연동'],
         },
         {
           title: '사내 방송 미디어 시스템 솔루션(SEDN V2) 개발 및 유지보수',
@@ -112,7 +111,7 @@ export const portfolioData = {
             android: [],
           },
           summary: '법원TV 생방송 페이지 기능 커스텀 프론트엔드 개발',
-          items: ['화면 UI 개발 및 기능 개발', '법원TV 방송 페이지내 STT 기능 연동'],
+          items: ['화면 UI 개발 및 기능 개발', '법원TV 방송 페이지내 영상에 STT 기능 API 연동'],
         },
         {
           title: 'Remind (소아, 청소년 디지털 멘탈케어 앱)',
@@ -143,8 +142,10 @@ export const portfolioData = {
           summary: '아이·부모·상담사 앱 3종의 주요 기능을 개발하고 앱스토어 배포 과정까지 담당했습니다.',
           items: [
             'React Native Expo 기반으로 앱 3종의 프론트엔드 기능 개발',
+            '상담사, 부모, 아이 앱 간의 데이터 연결 및 권한 흐름 처리',
+            '복약 등록 및 푸시 알림 기능',
+            '워크북 처방 및 수행 기능 API 연동',
             '걸음수 데이터 등 헬스 데이터 접근 기능 개발',
-            '푸시 알림 API 연동과 플랫폼별 권한 흐름 처리',
             '아이 앱의 지식 쇼츠 영상 기능과 카카오 로그인 API 연동',
           ],
         },
@@ -223,8 +224,8 @@ export const portfolioData = {
       },
       {
         label: 'Outcome',
-        title: '하나의 솔루션을 여러 환경으로 확장',
-        copy: '공공기관과 협회 등 서로 다른 운영 환경에 같은 제품 기반을 적용했습니다.',
+        title: '하나의 솔루션을 여러 디자인과 기능으로 커스텀',
+        copy: '공공기관과 협회 등 서로 다른 납품처의 요구사항을 솔루션 내 설정으로 변경 및 적용 가능하도록 구현했습니다.',
       },
     ],
     metrics: [
@@ -248,7 +249,17 @@ export const portfolioData = {
       {
         src: userTemplate1,
         alt: 'SEDN 사용자 페이지의 메인 화면',
-        caption: 'SEDN V2 사용자 페이지 메인 화면',
+        caption: 'SEDN V2 사용자 페이지 메인 화면(라이브 템플릿)',
+      },
+      {
+        src: userTemplate2,
+        alt: 'SEDN 사용자 페이지의 메인 화면',
+        caption: 'SEDN V2 사용자 페이지 메인 화면(라이브 세미나 템플릿)',
+      },
+      {
+        src: userTemplate3,
+        alt: 'SEDN 사용자 페이지의 메인 화면',
+        caption: 'SEDN V2 사용자 페이지 메인 화면(캘린더 템플릿)',
       },
     ],
   },
