@@ -1,7 +1,7 @@
 // 포트폴리오 화면에 표시할 실제 데이터 원본입니다.
 // API나 CMS를 붙이기 전까지는 이 파일의 내용을 수정하면 됩니다.
-const email = 'srw0901@gmail.com';
-const githubUrl = 'https://github.com/Achates09/';
+export const email = 'srw0901@gmail.com';
+export const githubUrl = 'https://github.com/Achates09/';
 
 export const portfolioData = {
   hero: {
@@ -19,8 +19,8 @@ export const portfolioData = {
     focus: ['UX', 'Communication', 'Maintainability'],
   },
   about: {
-    birthDate: '1990.09.01',
     location: 'Seoul',
+    availability: 'Frontend Developer',
     paragraphs: [
       'React와 Next.js를 중심으로 관리자 CMS와 사용자 페이지를 개발해 왔습니다. 특히 장기간 운영한 미디어 시스템에서는 납품처마다 달라지는 요구사항을 템플릿 구조로 정리하며 유지보수성과 확장성을 함께 고민했습니다.',
       'SK Planet과의 API 연동부터 공공기관 방송 서비스, 법원TV STT 기능, 소아·청소년 멘탈케어 앱까지 다양한 프로젝트에 참여했습니다. 백엔드 개발자와 프로젝트 관계자들의 요구사항을 화면과 기능으로 구체화하며 웹과 모바일의 사용자 경험을 완성해 왔습니다.',
@@ -53,10 +53,10 @@ export const portfolioData = {
             ios: [],
             android: [],
           },
-          summary: 'SK Broadband의 인터넷 모뎀을 원격으로 실시간 테스트 및 펌웨어 업데이트 하는 등 자동화 시스템 관리자 페이지 개발',
+          summary: '인터넷 모뎀의 원격 테스트와 펌웨어 업데이트 과정을 운영자가 단계별로 관리하는 자동화 시스템 화면 API 연동 작업',
           items: [
-            'SK Planet(SK Broadband 자회사, 백엔드 api 개발)와 협업하여 화면 UI 개발 및 api 기능 연동 작업',
-            '설정 페이지, 펌웨어 업데이트 페이지, 원격 테스트 Step 별 페이지 등 기능 개발',
+            'SK Planet 백엔드 개발자와 API 명세 및 예외 흐름을 조율하고 관리자 UI에 연동',
+            '설정, 펌웨어 업데이트, 단계별 원격 테스트 화면을 공통 컴포넌트 구조로 구현',
           ],
         },
         {
@@ -83,11 +83,10 @@ export const portfolioData = {
           },
           summary: '이누씨의 솔루션, SEDN V2의 관리자 페이지 및 사용자 페이지 프론트엔드 개발',
           items: [
-            'CMS(관리자 페이지) 및 사용자 페이지 화면 UI 개발 및 기능 개발',
-            '기간이 긴 이유는 초기 개발 완료 후 납품마다 납품처별 커스텀 개발이 진행되었기 때문입니다.',
-            '위 데모 페이지 링크 -> 관리자 페이지의 설정 -> 템플릿 설정에 각 납품처별 커스텀 개발을 템플릿화 하였습니다.',
-            'CMS 페이지에서 템플릿 변경시 사용자 페이지가 해당 템플릿에 맞게 변경됩니다.',
-            '일부 기능의 경우 프론트엔드 환경변수 및 DB 데이터 세팅이 필요하기 때문에 데모 페이지에서 동작하지 않는 기능이 있을 수 있습니다.',
+            'CMS와 사용자 페이지를 함께 개발하며 운영 설정이 실제 서비스 화면으로 이어지는 흐름을 구현',
+            '납품처별 화면 차이를 템플릿 설정으로 구조화해 공통 코드와 커스텀 요구사항을 분리',
+            'CMS에서 템플릿을 변경하면 사용자 페이지가 해당 구성으로 렌더링되도록 상태와 UI를 연결',
+            '데모 환경에서는 환경변수와 DB 설정이 필요한 일부 기능이 제한될 수 있음',
           ],
         },
         {
@@ -97,7 +96,7 @@ export const portfolioData = {
           associatedCompany: '법원도서관',
           introUrl: '',
           demoUrl: '',
-          stack: ['JSP', 'HTML', 'CSS', 'javascript'],
+          stack: ['JSP', 'HTML', 'CSS', 'JavaScript'],
           clients: [{ name: '법원도서관', url: 'https://tv.scourt.go.kr' }],
           storeLinks: {
             ios: [],
@@ -132,13 +131,12 @@ export const portfolioData = {
               { name: '리마인드 미(부모앱)', url: 'https://play.google.com/store/apps/details?id=com.inuc.remind.parent' },
             ],
           },
-          summary: '화면 기능 개발 및 프론트엔드 개발 및 배포',
+          summary: '아이·부모·상담사 앱 3종의 주요 기능을 개발하고 앱스토어 배포 과정까지 담당했습니다.',
           items: [
-            'React-Native Expo 프론트엔드 기능 개발',
+            'React Native Expo 기반으로 앱 3종의 프론트엔드 기능 개발',
             '걸음수 데이터 등 헬스 데이터 접근 기능 개발',
-            '푸쉬 알림 기능 api 연동',
-            '(아이앱) 지식 쇼츠 영상 기능',
-            '(아이앱) 카카오 로그인 기능 api 연동',
+            '푸시 알림 API 연동과 플랫폼별 권한 흐름 처리',
+            '아이 앱의 지식 쇼츠 영상 기능과 카카오 로그인 API 연동',
           ],
         },
       ],

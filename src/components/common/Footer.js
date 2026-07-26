@@ -2,6 +2,7 @@
 
 import styled from 'styled-components';
 import Container from './Container';
+import { email, githubUrl } from '@/data/portfolio';
 
 // 사이트 하단의 저작권 문구와 외부 링크 영역입니다.
 const Wrapper = styled.footer`
@@ -32,14 +33,12 @@ const Footer = () => {
   return (
     <Wrapper>
       <Inner>
-        <p>{`© ${new Date().getFullYear()} Wi Seok Ryang. Built with Next.js.`}</p>
+        <p>{`© ${new Date().getFullYear()} Wi Seokryang. Built with Next.js.`}</p>
         <Links>
-          {/* <a href="https://github.com/" target="_blank" rel="noreferrer">
+          {/* <a href={githubUrl} target="_blank" rel="noreferrer">
             GitHub
           </a>
-          <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">
-            LinkedIn
-          </a> */}
+          <a href={`mailto:${email}`}>Email</a> */}
         </Links>
       </Inner>
     </Wrapper>

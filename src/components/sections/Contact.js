@@ -82,7 +82,7 @@ const Contact = ({ data }) => {
         </div>
         <Actions>
           <LinkButton $primary href={`mailto:${data.email}`}>
-            Send Mail
+            이메일 보내기
           </LinkButton>
           {/* <LinkButton href={data.githubUrl} target="_blank" rel="noreferrer">
             GitHub 보기

@@ -29,7 +29,7 @@ const Title = styled.h2`
   line-height: 1.2;
 `;
 
-// 생년월일과 지역을 설명 목록으로 묶고 각 항목을 세로로 배치합니다.
+// 공개 범위가 적절한 지역과 직무 정보만 표시합니다.
 const Profile = styled.dl`
   display: grid;
   gap: 10px;
@@ -106,8 +106,8 @@ const About = ({ data }) => {
           <Title>About Me</Title>
           <Profile>
             <ProfileItem>
-              <ProfileLabel>Birth</ProfileLabel>
-              <ProfileValue>{data.birthDate}</ProfileValue>
+              <ProfileLabel>Role</ProfileLabel>
+              <ProfileValue>{data.availability}</ProfileValue>
             </ProfileItem>
             <ProfileItem>
               <ProfileLabel>Location</ProfileLabel>
