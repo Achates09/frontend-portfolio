@@ -22,7 +22,7 @@ export const portfolioData = {
     description:
       '기획자, 디자이너, 백엔드 개발자와 요구사항을 구체화하고, 사용자와 팀 모두가 이해하기 쉬운 화면과 구조를 만드는 프론트엔드 개발자 위석량입니다.',
     email,
-    stack: ['React', 'Next.js', 'Redux'],
+    stack: ['React', 'Next.js', 'Redux', 'JavaScript'],
     asyncFlow: 'Redux-Saga',
     styling: 'styled-components',
     focus: ['UX', 'Communication', 'Maintainability'],
@@ -56,7 +56,7 @@ export const portfolioData = {
           associatedCompany: 'SK Planet',
           introUrl: '',
           demoUrl: '',
-          stack: ['React', 'styled-components'],
+          stack: ['React', 'styled-components', 'JavaScript'],
           clients: [{ name: 'SK Broadband', url: '' }],
           storeLinks: {
             ios: [],
@@ -75,7 +75,7 @@ export const portfolioData = {
           associatedCompany: '',
           introUrl: 'https://sedn.software/',
           demoUrl: 'https://sedn.software/demo',
-          stack: ['React', 'Next.js', 'Redux', 'Redux-Saga', 'styled-components'],
+          stack: ['React', 'Next.js', 'Redux', 'Redux-Saga', 'styled-components', 'JavaScript'],
           clients: [
             { name: '국가과학기술연구회(NST) 출연(연) 법정교육TV(내부망)', url: '' },
             { name: '광주 광산구청', url: 'https://gwangsanlive.kr/' },
@@ -121,7 +121,7 @@ export const portfolioData = {
           associatedCompany: '서울대학교병원 소아청소년정신과(홍순범 교수)',
           introUrl: 'https://remind.care/',
           demoUrl: '',
-          stack: ['React-Native Expo'],
+          stack: ['React-Native Expo', 'Redux', 'Redux-Saga', 'styled-components', 'JavaScript'],
           clients: [],
           storeLinks: {
             ios: [
@@ -237,18 +237,18 @@ export const portfolioData = {
       {
         // 정적 import 결과에는 Next.js가 확인한 실제 src, width, height 정보가 모두 포함됩니다.
         src: adminTemplateSetting1,
-        alt: 'SEDN 관리자 페이지의 템플릿 설정 첫 번째 화면',
-        caption: 'CMS 템플릿 설정 화면 1',
+        alt: 'SEDN V2 관리자 페이지의 템플릿 설정 첫 번째 화면',
+        caption: 'SEDN V2 관리자 페이지 템플릿 설정 화면 1',
       },
       {
         src: adminTemplateSetting2,
         alt: 'SEDN 관리자 페이지의 템플릿 설정 두 번째 화면',
-        caption: 'CMS 템플릿 설정 화면 2',
+        caption: 'SEDN V2 관리자 페이지 템플릿 설정 화면 2',
       },
       {
         src: userTemplate1,
         alt: 'SEDN 사용자 페이지의 메인 화면',
-        caption: '사용자 페이지 메인 화면',
+        caption: 'SEDN V2 사용자 페이지 메인 화면',
       },
     ],
   },
