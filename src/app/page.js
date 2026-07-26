@@ -6,6 +6,7 @@ import About from '@/components/sections/About';
 import Contact from '@/components/sections/Contact';
 import Education from '@/components/sections/Education';
 import Experience from '@/components/sections/Experience';
+import FeaturedCaseStudy from '@/components/sections/FeaturedCaseStudy';
 import Hero from '@/components/sections/Hero';
 import Skills from '@/components/sections/Skills';
 import { portfolioData } from '@/data/portfolio';
@@ -32,6 +33,9 @@ export default function Home() {
             그래야 내부 콘텐츠만 슬라이드되고, 섹션 구분 배경은 제자리에서 컨텍스트 영역과 맞게 유지됩니다. */}
         <ScrollReveal direction="up" background="subtle">
           <Experience items={portfolioData.experiences} />
+        </ScrollReveal>
+        <ScrollReveal direction="up" background="subtle">
+          <FeaturedCaseStudy data={portfolioData.featuredCaseStudy} />
         </ScrollReveal>
         <ScrollReveal direction="up">
           <Skills groups={portfolioData.skills} />

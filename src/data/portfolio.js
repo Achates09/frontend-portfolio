@@ -1,3 +1,12 @@
+/*
+ * public 이미지를 문자열 경로로 전달하지 않고 정적으로 import합니다.
+ * Next.js가 빌드 시 각 파일의 실제 width, height, 이미지 비율을 자동으로 읽어
+ * portfolioData에 크기를 수동으로 기록하거나 이미지가 바뀔 때 수정할 필요가 없습니다.
+ */
+import adminTemplateSetting1 from '../../public/admin-templateSetting1.png';
+import adminTemplateSetting2 from '../../public/admin-templateSetting2.png';
+import userTemplate1 from '../../public/user-template1.png';
+
 // 포트폴리오 화면에 표시할 실제 데이터 원본입니다.
 // API나 CMS를 붙이기 전까지는 이 파일의 내용을 수정하면 됩니다.
 export const email = 'srw0901@gmail.com';
@@ -195,6 +204,54 @@ export const portfolioData = {
     //   ],
     // },
   ],
+  featuredCaseStudy: {
+    eyebrow: 'Project Improvement',
+    title: '반복되는 납품처별 요구사항을 하나의 템플릿 시스템으로',
+    project: 'SEDN V2 미디어 시스템',
+    description:
+      '기관마다 달랐던 화면 구성과 운영 요구사항을 CMS 설정 기반 템플릿으로 구조화했습니다. 관리자는 템플릿을 선택하고, 사용자 페이지는 해당 설정에 맞춰 변경됩니다.',
+    stages: [
+      {
+        label: 'Problem',
+        title: '납품마다 반복되는 커스텀 개발',
+        copy: '기관별 메뉴, 콘텐츠 구성, 노출 정책이 달라 공통 코드와 개별 요구사항을 함께 관리해야 했습니다.',
+      },
+      {
+        label: 'Approach',
+        title: '설정과 화면 렌더링의 분리',
+        copy: 'CMS의 템플릿 설정을 데이터로 관리하고 사용자 페이지가 설정값에 따라 조합되도록 구조화했습니다.',
+      },
+      {
+        label: 'Outcome',
+        title: '하나의 솔루션을 여러 환경으로 확장',
+        copy: '공공기관과 협회 등 서로 다른 운영 환경에 같은 제품 기반을 적용했습니다.',
+      },
+    ],
+    metrics: [
+      { value: '10+', label: '적용 기관', isExample: false },
+      { value: '11종', label: '템플릿 유형', isExample: false },
+      { value: '30%', label: '반복 작업 감소', isExample: false },
+    ],
+    note: 'CMS 템플릿 설정은 관리자 페이지에서만 적용되며, 데모 환경에서는 일부 기능이 제한될 수 있습니다.',
+    images: [
+      {
+        // 정적 import 결과에는 Next.js가 확인한 실제 src, width, height 정보가 모두 포함됩니다.
+        src: adminTemplateSetting1,
+        alt: 'SEDN 관리자 페이지의 템플릿 설정 첫 번째 화면',
+        caption: 'CMS 템플릿 설정 화면 1',
+      },
+      {
+        src: adminTemplateSetting2,
+        alt: 'SEDN 관리자 페이지의 템플릿 설정 두 번째 화면',
+        caption: 'CMS 템플릿 설정 화면 2',
+      },
+      {
+        src: userTemplate1,
+        alt: 'SEDN 사용자 페이지의 메인 화면',
+        caption: '사용자 페이지 메인 화면',
+      },
+    ],
+  },
   skills: [
     {
       title: 'Core',
