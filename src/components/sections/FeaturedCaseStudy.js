@@ -316,16 +316,27 @@ export default function FeaturedCaseStudy({ data }) {
       // 사용자가 직접 스와이프할 때는 브라우저의 기본 스크롤과 CSS scroll-snap이 처리합니다.
       behavior: 'smooth',
     });
-    setActiveImage(index);
+
+    /*
+     * 여기서 activeImage를 즉시 변경하면 smooth 스크롤의 첫 scroll 이벤트가
+     * 아직 이전 프레임 위치를 계산해 상태를 다시 되돌릴 수 있습니다.
+     * 상태 변경은 아래 updateActiveImage 한 곳에서만 처리해
+     * 새 인덱스 → 이전 인덱스 → 새 인덱스로 왕복하며 숫자가 깜빡이는 현상을 방지합니다.
+     */
   };
 
-  // 터치나 트랙패드로 직접 스크롤한 경우, 가장 가까운 프레임을 계산해 React 상태를 동기화합니다.
+  // 버튼, 터치, 트랙패드 등 이동 방식과 관계없이 실제 스크롤 위치를 상태의 단일 기준으로 사용합니다.
   const updateActiveImage = event => {
     const viewport = event.currentTarget;
+
+    if (images.length === 0 || viewport.clientWidth === 0) return;
+
     const nextIndex = Math.round(viewport.scrollLeft / viewport.clientWidth);
+    const boundedIndex = Math.min(Math.max(nextIndex, 0), images.length - 1);
 
     // 반동 스크롤 등으로 계산값이 범위를 벗어나더라도 유효한 이미지 인덱스 안으로 제한합니다.
-    setActiveImage(Math.min(Math.max(nextIndex, 0), images.length - 1));
+    // smooth 스크롤은 scroll 이벤트를 여러 번 발생시키므로 값이 달라질 때만 실제 상태를 갱신합니다.
+    setActiveImage(currentIndex => (currentIndex === boundedIndex ? currentIndex : boundedIndex));
   };
 
   // Viewport에 키보드 포커스가 있을 때 좌우 방향키로도 한 프레임씩 탐색할 수 있습니다.
@@ -335,7 +346,7 @@ export default function FeaturedCaseStudy({ data }) {
   };
 
   return (
-    <Section id="case-study">
+    <Section id="project-improvement">
       <Header>
         <div>
           <Eyebrow>{data.eyebrow}</Eyebrow>
