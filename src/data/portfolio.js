@@ -8,6 +8,8 @@ import adminTemplateSetting2 from '../../public/admin-templateSetting2.png';
 import userTemplate1 from '../../public/user-template1.png';
 import userTemplate2 from '../../public/user-template2.png';
 import userTemplate3 from '../../public/user-template3.png';
+import adminStt from '../../public/admin-stt.png';
+import userStt from '../../public/user-stt.png';
 
 // 포트폴리오 화면에 표시할 실제 데이터 원본입니다.
 // API나 CMS를 붙이기 전까지는 이 파일의 내용을 수정하면 됩니다.
@@ -110,7 +112,7 @@ export const portfolioData = {
             ios: [],
             android: [],
           },
-          summary: '법원TV 생방송 페이지 기능 커스텀 프론트엔드 개발',
+          summary: '법원TV 영상 페이지 기능 커스텀 프론트엔드 개발',
           items: ['화면 UI 개발 및 기능 개발', '법원TV 방송 페이지내 영상에 STT 기능 API 연동'],
         },
         {
@@ -207,59 +209,112 @@ export const portfolioData = {
   ],
   featuredCaseStudy: {
     eyebrow: 'Project Improvement',
-    title: '반복되는 납품처별 요구사항을 하나의 템플릿 시스템으로',
-    project: 'SEDN V2 미디어 시스템',
-    description:
-      '기관마다 달랐던 화면 구성과 운영 요구사항을 CMS 설정 기반 템플릿으로 구조화했습니다. 관리자는 템플릿을 선택하고, 사용자 페이지는 해당 설정에 맞춰 변경됩니다.',
-    stages: [
+    /*
+     * 모든 개선 사례를 같은 형식의 객체로 cases 배열에 등록합니다.
+     * 새 사례도 기존 사례와 동일하게 id부터 images까지 작성하면 탭이 자동으로 추가됩니다.
+     */
+    cases: [
       {
-        label: 'Problem',
-        title: '납품마다 반복되는 커스텀 개발',
-        copy: '기관별 메뉴, 콘텐츠 구성, 노출 정책이 달라 공통 코드와 개별 요구사항을 함께 관리해야 했습니다.',
+        id: 'stt-subtitle',
+        tabLabel: 'STT Subtitle',
+        title: '영상에서 오디오 파일을 추출, 텍스트 자막으로 자동 전환하는 Speech to Text 기능',
+        project: 'SEDN V2 미디어 시스템',
+        description:
+          '영상의 음성 데이터를 STT(Speech to Text) 기능과 연동해 업로드된 영상의 자막을 자동 생성하여 콘텐츠 관리자의 업무 효율을 개선한 사례입니다.',
+        stages: [
+          {
+            label: 'Problem',
+            title: '업로드된 영상의 자막을 수동으로 등록하기 어려움',
+            copy: 'SEDN 시스템은 지방 군의회, 시의회 등에 납품되는 경우가 많은데, 영상회의록 콘텐츠의 자막 제작에 많은 시간이 소요된다는 의견이 있었습니다.',
+          },
+          {
+            label: 'Approach',
+            title: 'OpenAI에서 개발한 오픈소스 Whisper 자동 음성 인식 모델을 개발팀에 제안',
+            copy: '백엔드 개발자와 협력하여 Whisper 모델을 활용해 영상에서 오디오를 추출하고, 추출된 오디오를 텍스트로 변환하는 STT 기능을 구현했습니다.',
+          },
+          {
+            label: 'Outcome',
+            title: '영상콘텐츠의 자막 등록 과정 간소화 및 AI 자동화',
+            copy: '콘텐츠 관리자가 영상 업로드 후 자막 등록시 자동으로 영상에서 자막을 추출하여 생성되도록 개선했습니다.',
+          },
+        ],
+        metrics: [
+          { value: 'AI 자막 생성', label: '자막 등록 방식', isExample: false },
+          { value: 'Whisper', label: '음성 인식 모델', isExample: false },
+          { value: '수동 → 자동', label: '자막 등록 간소화', isExample: false },
+        ],
+        note: 'STT 기능은 Whisper 모델을 활용한 오픈소스 기반으로 구현되었으며, 납품 서버에 별도 GPU가 필요합니다. 데모 환경에서는 일부 기능이 제한될 수 있습니다.',
+        images: [
+          {
+            src: adminStt,
+            alt: '관리자 페이지 영상 STT 추출 화면',
+            caption: '관리자 페이지 영상 STT 추출 화면',
+          },
+          {
+            src: userStt,
+            alt: '사용자 페이지 영상과 자막 연동 화면',
+            caption: '사용자 페이지 영상과 자막 연동 화면',
+          },
+        ],
       },
       {
-        label: 'Approach',
-        title: '설정과 화면 렌더링의 분리',
-        copy: 'CMS의 템플릿 설정을 데이터로 관리하고 사용자 페이지가 설정값에 따라 조합되도록 구조화했습니다.',
-      },
-      {
-        label: 'Outcome',
-        title: '하나의 솔루션을 여러 디자인과 기능으로 커스텀',
-        copy: '공공기관과 협회 등 서로 다른 납품처의 요구사항을 솔루션 내 설정으로 변경 및 적용 가능하도록 구현했습니다.',
-      },
-    ],
-    metrics: [
-      { value: '10+', label: '적용 기관', isExample: false },
-      { value: '11종', label: '템플릿 유형', isExample: false },
-      { value: '30%', label: '반복 작업 감소', isExample: false },
-    ],
-    note: 'CMS 템플릿 설정은 관리자 페이지에서만 적용되며, 데모 환경에서는 일부 기능이 제한될 수 있습니다.',
-    images: [
-      {
-        // 정적 import 결과에는 Next.js가 확인한 실제 src, width, height 정보가 모두 포함됩니다.
-        src: adminTemplateSetting1,
-        alt: 'SEDN V2 관리자 페이지의 템플릿 설정 첫 번째 화면',
-        caption: 'SEDN V2 관리자 페이지 템플릿 설정 화면 1',
-      },
-      {
-        src: adminTemplateSetting2,
-        alt: 'SEDN 관리자 페이지의 템플릿 설정 두 번째 화면',
-        caption: 'SEDN V2 관리자 페이지 템플릿 설정 화면 2',
-      },
-      {
-        src: userTemplate1,
-        alt: 'SEDN 사용자 페이지의 메인 화면',
-        caption: 'SEDN V2 사용자 페이지 메인 화면(라이브 템플릿)',
-      },
-      {
-        src: userTemplate2,
-        alt: 'SEDN 사용자 페이지의 메인 화면',
-        caption: 'SEDN V2 사용자 페이지 메인 화면(라이브 세미나 템플릿)',
-      },
-      {
-        src: userTemplate3,
-        alt: 'SEDN 사용자 페이지의 메인 화면',
-        caption: 'SEDN V2 사용자 페이지 메인 화면(캘린더 템플릿)',
+        id: 'template-system',
+        tabLabel: 'Template System',
+        title: '반복되는 납품처별 요구사항을 하나의 템플릿 시스템으로',
+        project: 'SEDN V2 미디어 시스템',
+        description:
+          '기관마다 달랐던 화면 구성과 운영 요구사항을 CMS 설정 기반 템플릿으로 구조화했습니다. 관리자는 템플릿을 선택하고, 사용자 페이지는 해당 설정에 맞춰 변경됩니다.',
+        stages: [
+          {
+            label: 'Problem',
+            title: '납품마다 반복되는 커스텀 개발',
+            copy: '기관별 메뉴, 콘텐츠 구성, 노출 정책이 달라 공통 코드와 개별 요구사항을 함께 관리해야 했습니다.',
+          },
+          {
+            label: 'Approach',
+            title: '설정과 화면 렌더링의 분리',
+            copy: 'CMS의 템플릿 설정을 데이터로 관리하고 사용자 페이지가 설정값에 따라 조합되도록 구조화했습니다.',
+          },
+          {
+            label: 'Outcome',
+            title: '하나의 솔루션을 여러 디자인과 기능으로 커스텀',
+            copy: '공공기관과 협회 등 서로 다른 납품처의 요구사항을 솔루션 내 설정으로 변경 및 적용 가능하도록 구현했습니다.',
+          },
+        ],
+        metrics: [
+          { value: '10+', label: '적용 기관', isExample: false },
+          { value: '11종', label: '템플릿 유형', isExample: false },
+          { value: '30%', label: '반복 작업 감소', isExample: false },
+        ],
+        note: 'CMS 템플릿 설정은 관리자 페이지에서만 적용되며, 데모 환경에서는 일부 기능이 제한될 수 있습니다.',
+        images: [
+          {
+            // 정적 import 결과에는 Next.js가 확인한 실제 src, width, height 정보가 모두 포함됩니다.
+            src: adminTemplateSetting1,
+            alt: 'SEDN V2 관리자 페이지의 템플릿 설정 첫 번째 화면',
+            caption: 'SEDN V2 관리자 페이지 템플릿 설정 화면 1',
+          },
+          {
+            src: adminTemplateSetting2,
+            alt: 'SEDN 관리자 페이지의 템플릿 설정 두 번째 화면',
+            caption: 'SEDN V2 관리자 페이지 템플릿 설정 화면 2',
+          },
+          {
+            src: userTemplate1,
+            alt: 'SEDN 사용자 페이지의 메인 화면',
+            caption: 'SEDN V2 사용자 페이지 메인 화면(라이브 템플릿)',
+          },
+          {
+            src: userTemplate2,
+            alt: 'SEDN 사용자 페이지의 메인 화면',
+            caption: 'SEDN V2 사용자 페이지 메인 화면(라이브 세미나 템플릿)',
+          },
+          {
+            src: userTemplate3,
+            alt: 'SEDN 사용자 페이지의 메인 화면',
+            caption: 'SEDN V2 사용자 페이지 메인 화면(캘린더 템플릿)',
+          },
+        ],
       },
     ],
   },

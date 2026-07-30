@@ -10,6 +10,59 @@ const Section = styled.section`
   padding: 104px 0;
 `;
 
+const SectionHeading = styled(Container)`
+  margin-bottom: 18px;
+`;
+
+const Tabs = styled.div`
+  /*
+   * 탭이 늘어나도 섹션 높이를 키우지 않고 한 줄을 유지합니다.
+   * 모바일에서는 컨테이너 내부만 가로 스크롤되므로 페이지 전체에 수평 스크롤이 생기지 않습니다.
+   */
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 2px 2px 10px;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+const TabButton = styled.button`
+  /*
+   * flex-shrink: 0으로 탭 문구가 좁게 압축되지 않게 하고,
+   * 선택된 탭은 민트색, 선택되지 않은 탭은 골드색 계열을 사용해
+   * 글자와 테두리만 달랐던 기존 상태보다 각 탭을 시각적으로 쉽게 구분합니다.
+   */
+  flex: 0 0 auto;
+  min-height: 42px;
+  border: 1px solid ${({ $active, theme }) => ($active ? theme.colors.primary : 'rgba(246, 193, 119, 0.52)')};
+  border-radius: 999px;
+  padding: 0 18px;
+  color: ${({ $active, theme }) => ($active ? theme.colors.background : theme.colors.secondary)};
+  background: ${({ $active, theme }) => ($active ? theme.colors.primary : 'rgba(246, 193, 119, 0.1)')};
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+
+  &:hover {
+    border-color: ${({ $active, theme }) => ($active ? theme.colors.primary : theme.colors.secondary)};
+    color: ${({ $active, theme }) => ($active ? theme.colors.background : theme.colors.text)};
+    background: ${({ $active, theme }) => ($active ? theme.colors.primary : 'rgba(246, 193, 119, 0.18)')};
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+`;
+
+const CasePanel = styled.div``;
+
 // 제목과 소개 문구는 데스크톱에서 두 열로 배치하고, 태블릿 이하에서는 한 열로 쌓습니다.
 const Header = styled(Container)`
   display: grid;
@@ -23,6 +76,8 @@ const Header = styled(Container)`
 `;
 
 const Eyebrow = styled.p`
+  /* 섹션 제목과 사례 선택 탭이 붙어 보이지 않도록 충분한 시각적 간격을 확보합니다. */
+  margin-bottom: 20px;
   color: ${({ theme }) => theme.colors.primary};
   font-weight: 800;
 `;
@@ -295,6 +350,16 @@ const Note = styled.p`
 `;
 
 export default function FeaturedCaseStudy({ data }) {
+  // 모든 사례가 동일한 객체 형식으로 정리된 cases 배열을 탭 데이터 원본으로 사용합니다.
+  const cases = data.cases;
+
+  // 현재 선택된 사례 탭과 해당 사례의 이미지 위치를 각각 관리합니다.
+  const [activeCase, setActiveCase] = useState(0);
+  const selectedCase = cases[activeCase];
+
+  // 탭 키보드 이동 후 실제 버튼에 포커스를 옮기기 위해 탭 목록 DOM을 참조합니다.
+  const tabsRef = useRef(null);
+
   // DOM 스크롤 위치를 직접 이동시키기 위해 가로 Viewport 요소를 참조합니다.
   const viewportRef = useRef(null);
 
@@ -302,7 +367,35 @@ export default function FeaturedCaseStudy({ data }) {
   const [activeImage, setActiveImage] = useState(0);
 
   // images가 없는 데이터가 전달되어도 렌더링 중 오류가 발생하지 않도록 빈 배열을 기본값으로 사용합니다.
-  const images = data.images ?? [];
+  const images = selectedCase.images ?? [];
+
+  /*
+   * 사례를 바꿀 때 이미지 번호도 항상 첫 프레임으로 초기화합니다.
+   * CasePanel의 key가 함께 변경되어 기존 갤러리 DOM이 새로 만들어지므로
+   * 이전 사례의 scrollLeft 위치 역시 새 사례에 남지 않습니다.
+   */
+  const selectCase = index => {
+    setActiveCase(index);
+    setActiveImage(0);
+  };
+
+  /*
+   * WAI-ARIA 탭 패턴에 맞춰 좌우 방향키로 이전/다음 탭을 순환하고,
+   * Home과 End 키로 첫 번째/마지막 탭에 바로 이동합니다.
+   */
+  const handleTabKeyDown = (event, currentIndex) => {
+    let nextIndex = currentIndex;
+
+    if (event.key === 'ArrowLeft') nextIndex = (currentIndex - 1 + cases.length) % cases.length;
+    else if (event.key === 'ArrowRight') nextIndex = (currentIndex + 1) % cases.length;
+    else if (event.key === 'Home') nextIndex = 0;
+    else if (event.key === 'End') nextIndex = cases.length - 1;
+    else return;
+
+    event.preventDefault();
+    selectCase(nextIndex);
+    tabsRef.current?.querySelectorAll('[role="tab"]')[nextIndex]?.focus();
+  };
 
   // 인덱스를 실제 픽셀 위치(Viewport 너비 × 인덱스)로 변환해 정확히 한 프레임만 이동합니다.
   const scrollToImage = index => {
@@ -347,98 +440,132 @@ export default function FeaturedCaseStudy({ data }) {
 
   return (
     <Section id="project-improvement">
-      <Header>
-        <div>
-          <Eyebrow>{data.eyebrow}</Eyebrow>
-          <Title>{data.title}</Title>
-          <Project>{data.project}</Project>
-        </div>
-        <Description>{data.description}</Description>
-      </Header>
+      <SectionHeading>
+        <Eyebrow>{data.eyebrow}</Eyebrow>
+        {/* 탭은 사례가 추가되어도 세로 높이를 늘리지 않고 선택된 사례 하나만 표시합니다. */}
+        <Tabs ref={tabsRef} role="tablist" aria-label="프로젝트 개선 사례">
+          {cases.map((item, index) => {
+            const isActive = activeCase === index;
 
-      <Content>
-        <StageList>
-          {data.stages.map(stage => (
-            <Stage key={stage.label}>
-              <StageLabel>{stage.label}</StageLabel>
-              <StageTitle>{stage.title}</StageTitle>
-              <StageCopy>{stage.copy}</StageCopy>
-            </Stage>
-          ))}
-        </StageList>
+            return (
+              <TabButton
+                key={item.id}
+                id={`improvement-tab-${item.id}`}
+                type="button"
+                role="tab"
+                aria-selected={isActive}
+                aria-controls={`improvement-panel-${item.id}`}
+                tabIndex={isActive ? 0 : -1}
+                $active={isActive}
+                onClick={() => selectCase(index)}
+                onKeyDown={event => handleTabKeyDown(event, index)}
+              >
+                {item.tabLabel}
+              </TabButton>
+            );
+          })}
+        </Tabs>
+      </SectionHeading>
 
-        <div>
-          <Gallery aria-label="SEDN 관리자 템플릿 화면 이미지 갤러리">
-            <GalleryBar>
-              <WindowDots aria-hidden="true">
-                <span />
-                <span />
-                <span />
-              </WindowDots>
-              {/* aria-live를 통해 이미지 번호 변경을 스크린 리더에도 방해되지 않는 방식으로 알립니다. */}
-              <ImageCount aria-live="polite">
-                {activeImage + 1} / {images.length}
-              </ImageCount>
-            </GalleryBar>
+      {/* key가 바뀌면 패널과 갤러리를 새 DOM으로 렌더링해 이전 사례의 스크롤 위치를 제거합니다. */}
+      <CasePanel key={selectedCase.id} id={`improvement-panel-${selectedCase.id}`} role="tabpanel" aria-labelledby={`improvement-tab-${selectedCase.id}`}>
+        <Header>
+          <div>
+            <Title>{selectedCase.title}</Title>
+            <Project>{selectedCase.project}</Project>
+          </div>
+          <Description>{selectedCase.description}</Description>
+        </Header>
 
-            {/* tabIndex=0은 일반 div인 스크롤 영역을 키보드로 진입할 수 있게 합니다. */}
-            <Viewport ref={viewportRef} tabIndex={0} onScroll={updateActiveImage} onKeyDown={handleGalleryKeyDown}>
-              {images.map((image, index) => (
-                <Slide key={index}>
-                  {/* image.src는 정적 import로 생성된 이미지 객체이므로 width와 height를 따로 전달할 필요가 없습니다.
+        <Content>
+          <StageList>
+            {selectedCase.stages.map(stage => (
+              <Stage key={stage.label}>
+                <StageLabel>{stage.label}</StageLabel>
+                <StageTitle>{stage.title}</StageTitle>
+                <StageCopy>{stage.copy}</StageCopy>
+              </Stage>
+            ))}
+          </StageList>
+
+          <div>
+            <Gallery aria-label={`${selectedCase.project} 이미지 갤러리`}>
+              <GalleryBar>
+                <WindowDots aria-hidden="true">
+                  <span />
+                  <span />
+                  <span />
+                </WindowDots>
+                {/* aria-live를 통해 이미지 번호 변경을 스크린 리더에도 방해되지 않는 방식으로 알립니다. */}
+                <ImageCount aria-live="polite">
+                  {activeImage + 1} / {images.length}
+                </ImageCount>
+              </GalleryBar>
+
+              {/* tabIndex=0은 일반 div인 스크롤 영역을 키보드로 진입할 수 있게 합니다. */}
+              <Viewport ref={viewportRef} tabIndex={0} onScroll={updateActiveImage} onKeyDown={handleGalleryKeyDown}>
+                {images.map((image, index) => (
+                  <Slide key={index}>
+                    {/* image.src는 정적 import로 생성된 이미지 객체이므로 width와 height를 따로 전달할 필요가 없습니다.
                       Next.js가 파일의 실제 크기와 비율을 빌드 시 자동으로 사용합니다.
                       sizes는 반응형 표시 너비를 브라우저에 알립니다.
                       output: export에서는 이미지 최적화 서버가 없으므로 정적 원본을 unoptimized로 제공합니다. */}
-                  <Screenshot src={image.src} alt={image.alt} sizes="(max-width: 1024px) calc(100vw - 32px), 55vw" unoptimized />
-                  <Caption>{image.caption}</Caption>
-                </Slide>
-              ))}
-            </Viewport>
-
-            <GalleryControls>
-              <Pagination aria-label="이미지 선택">
-                {images.map((image, index) => (
-                  /* aria-current는 현재 선택된 페이지를 보조 기술에도 전달합니다. */
-                  <PaginationButton
-                    key={image.src.src}
-                    type="button"
-                    aria-label={`${index + 1}번 이미지 보기`}
-                    aria-current={activeImage === index ? 'true' : undefined}
-                    $active={activeImage === index}
-                    onClick={() => scrollToImage(index)}
-                  />
+                    <Screenshot src={image.src} alt={image.alt} sizes="(max-width: 1024px) calc(100vw - 32px), 55vw" unoptimized />
+                    <Caption>{image.caption}</Caption>
+                  </Slide>
                 ))}
-              </Pagination>
-              <ArrowButtons>
-                <ArrowButton type="button" aria-label="이전 이미지" disabled={activeImage === 0} onClick={() => scrollToImage(activeImage - 1)}>
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="m15 5-7 7 7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </ArrowButton>
-                <ArrowButton type="button" aria-label="다음 이미지" disabled={activeImage === images.length - 1} onClick={() => scrollToImage(activeImage + 1)}>
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="m9 5 7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </ArrowButton>
-              </ArrowButtons>
-            </GalleryControls>
-          </Gallery>
+              </Viewport>
 
-          <Metrics>
-            {data.metrics.map(metric => (
-              <Metric key={metric.label}>
-                <MetricValue>
-                  {metric.value}
-                  {/* 실제 측정값이 아닌 더미 수치는 오해하지 않도록 데이터 기준으로 예시 배지를 표시합니다. */}
-                  {metric.isExample && <ExampleBadge>예시</ExampleBadge>}
-                </MetricValue>
-                <MetricLabel>{metric.label}</MetricLabel>
-              </Metric>
-            ))}
-            {data.note && <Note>{data.note}</Note>}
-          </Metrics>
-        </div>
-      </Content>
+              <GalleryControls>
+                <Pagination aria-label="이미지 선택">
+                  {images.map((image, index) => (
+                    /* aria-current는 현재 선택된 페이지를 보조 기술에도 전달합니다. */
+                    <PaginationButton
+                      key={image.src.src}
+                      type="button"
+                      aria-label={`${index + 1}번 이미지 보기`}
+                      aria-current={activeImage === index ? 'true' : undefined}
+                      $active={activeImage === index}
+                      onClick={() => scrollToImage(index)}
+                    />
+                  ))}
+                </Pagination>
+                <ArrowButtons>
+                  <ArrowButton type="button" aria-label="이전 이미지" disabled={activeImage === 0} onClick={() => scrollToImage(activeImage - 1)}>
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="m15 5-7 7 7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </ArrowButton>
+                  <ArrowButton
+                    type="button"
+                    aria-label="다음 이미지"
+                    disabled={activeImage === images.length - 1}
+                    onClick={() => scrollToImage(activeImage + 1)}
+                  >
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="m9 5 7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </ArrowButton>
+                </ArrowButtons>
+              </GalleryControls>
+            </Gallery>
+
+            <Metrics>
+              {selectedCase.metrics.map(metric => (
+                <Metric key={metric.label}>
+                  <MetricValue>
+                    {metric.value}
+                    {/* 실제 측정값이 아닌 더미 수치는 오해하지 않도록 데이터 기준으로 예시 배지를 표시합니다. */}
+                    {metric.isExample && <ExampleBadge>예시</ExampleBadge>}
+                  </MetricValue>
+                  <MetricLabel>{metric.label}</MetricLabel>
+                </Metric>
+              ))}
+              {selectedCase.note && <Note>{selectedCase.note}</Note>}
+            </Metrics>
+          </div>
+        </Content>
+      </CasePanel>
     </Section>
   );
 }
